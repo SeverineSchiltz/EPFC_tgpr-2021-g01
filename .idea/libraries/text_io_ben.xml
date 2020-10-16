@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="text-io-ben">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/text-io-ben.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -3,13 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : sam. 17 oct. 2020 à 02:06 par Leyla Malsagova
+-- Généré le : lun. 19 oct. 2020 à 01:47 par Leyla Malsagova
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.2.27
-DROP DATABASE IF EXISTS paintball;
-CREATE DATABASE paintball;
-USE paintball;
-
 DROP DATABASE IF EXISTS paintball;
 CREATE DATABASE paintball;
 USE paintball;
@@ -411,37 +407,38 @@ CREATE TABLE `Reservation` (
   `is_cancelled` tinyint(1) DEFAULT NULL COMMENT '0 : not cancelled 1 : cancelled',
   `timeslot_id` int(10) NOT NULL,
   `field_id` int(10) NOT NULL,
-  `user_id` int(10) NOT NULL
+  `user_id` int(10) NOT NULL,
+  `fight_type_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `Reservation`
 --
 
-INSERT INTO `Reservation` (`id`, `date`, `is_cancelled`, `timeslot_id`, `field_id`, `user_id`) VALUES
-(1, '2020-10-18 00:00:00', NULL, 1, 1, 1),
-(2, '2020-10-19 00:00:00', NULL, 2, 2, 2),
-(3, '2020-10-20 00:00:00', NULL, 3, 3, 3),
-(4, '2020-10-21 00:00:00', NULL, 1, 4, 4),
-(5, '2020-10-22 00:00:00', NULL, 1, 5, 5),
-(6, '2020-10-23 00:00:00', 1, 2, 1, 6);
+INSERT INTO `Reservation` (`id`, `date`, `is_cancelled`, `timeslot_id`, `field_id`, `user_id`, `fight_type_id`) VALUES
+(1, '2020-10-18 00:00:00', NULL, 1, 1, 1, 3),
+(2, '2020-10-19 00:00:00', NULL, 2, 2, 2, 4),
+(3, '2020-10-20 00:00:00', NULL, 3, 3, 3, 3),
+(4, '2020-10-21 00:00:00', NULL, 1, 4, 4, 4),
+(5, '2020-10-22 00:00:00', NULL, 1, 5, 5, 2),
+(6, '2020-10-23 00:00:00', 1, 2, 1, 6, 3);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Reservation_Equipment`
+-- Structure de la table `Reservation_Equipment_Stock`
 --
 
-CREATE TABLE `Reservation_Equipment` (
+CREATE TABLE `Reservation_Equipment_Stock` (
   `reservation_id` int(10) NOT NULL,
   `equipment_stock_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `Reservation_Equipment`
+-- Déchargement des données de la table `Reservation_Equipment_Stock`
 --
 
-INSERT INTO `Reservation_Equipment` (`reservation_id`, `equipment_stock_id`) VALUES
+INSERT INTO `Reservation_Equipment_Stock` (`reservation_id`, `equipment_stock_id`) VALUES
 (1, 110),
 (1, 111),
 (2, 114),
@@ -553,15 +550,16 @@ ALTER TABLE `Reservation`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_used.id` (`user_id`) USING BTREE,
   ADD KEY `fk_field.id` (`field_id`) USING BTREE,
-  ADD KEY `fk_timeslot.id` (`timeslot_id`) USING BTREE;
+  ADD KEY `fk_timeslot.id` (`timeslot_id`) USING BTREE,
+  ADD KEY `fk_fight_type.id` (`fight_type_id`);
 
 --
--- Index pour la table `Reservation_Equipment`
+-- Index pour la table `Reservation_Equipment_Stock`
 --
-ALTER TABLE `Reservation_Equipment`
+ALTER TABLE `Reservation_Equipment_Stock`
   ADD PRIMARY KEY (`reservation_id`,`equipment_stock_id`) USING BTREE,
   ADD KEY `fk_reservation.id` (`reservation_id`),
-  ADD KEY `fk_equipement_stock.id` (`equipment_stock_id`) USING BTREE;
+  ADD KEY `equipment_stock_id` (`equipment_stock_id`);
 
 --
 -- Index pour la table `Timeslot`
@@ -632,36 +630,37 @@ ALTER TABLE `User`
 -- Contraintes pour la table `Equipment_Stock`
 --
 ALTER TABLE `Equipment_Stock`
-  ADD CONSTRAINT `equipment_stock_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `equipment_type` (`id`);
+  ADD CONSTRAINT `equipment_stock_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `Equipment_Type` (`id`);
 
 --
 -- Contraintes pour la table `Equipment_Type_Fight_Type`
 --
 ALTER TABLE `Equipment_Type_Fight_Type`
-  ADD CONSTRAINT `equipment_type_fight_type_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `equipment_type` (`id`),
-  ADD CONSTRAINT `equipment_type_fight_type_ibfk_2` FOREIGN KEY (`fight_type_id`) REFERENCES `fight_type` (`id`);
+  ADD CONSTRAINT `equipment_type_fight_type_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `Equipment_Type` (`id`),
+  ADD CONSTRAINT `equipment_type_fight_type_ibfk_2` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`);
 
 --
 -- Contraintes pour la table `Fight_Type_Field`
 --
 ALTER TABLE `Fight_Type_Field`
-  ADD CONSTRAINT `fight_type_field_ibfk_1` FOREIGN KEY (`field_id`) REFERENCES `field` (`id`),
-  ADD CONSTRAINT `fight_type_field_ibfk_2` FOREIGN KEY (`fight_type_id`) REFERENCES `fight_type` (`id`);
+  ADD CONSTRAINT `fight_type_field_ibfk_1` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`),
+  ADD CONSTRAINT `fight_type_field_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `Field` (`id`);
 
 --
 -- Contraintes pour la table `Reservation`
 --
 ALTER TABLE `Reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `field` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`id`);
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `Field` (`id`),
+  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`timeslot_id`) REFERENCES `Timeslot` (`id`),
+  ADD CONSTRAINT `reservation_ibfk_4` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`);
 
 --
--- Contraintes pour la table `Reservation_Equipment`
+-- Contraintes pour la table `Reservation_Equipment_Stock`
 --
-ALTER TABLE `Reservation_Equipment`
-  ADD CONSTRAINT `reservation_equipment_ibfk_1` FOREIGN KEY (`equipment_stock_id`) REFERENCES `equipment_stock` (`id`),
-  ADD CONSTRAINT `reservation_equipment_ibfk_2` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`);
+ALTER TABLE `Reservation_Equipment_Stock`
+  ADD CONSTRAINT `reservation_equipment_stock_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `Reservation` (`id`),
+  ADD CONSTRAINT `reservation_equipment_stock_ibfk_2` FOREIGN KEY (`equipment_stock_id`) REFERENCES `Equipment_Stock` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

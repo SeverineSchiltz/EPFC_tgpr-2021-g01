@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 19 oct. 2020 à 01:47 par Leyla Malsagova
+-- Généré le : lun. 19 oct. 2020 à 01:57 par Leyla Malsagova
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.2.27
 DROP DATABASE IF EXISTS paintball;
@@ -15,12 +15,14 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+DROP DATABASE IF EXISTS paintball;
+CREATE DATABASE paintball;
+USE paintball;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Base de données : `paintball`
 --
@@ -404,8 +406,8 @@ INSERT INTO `Fight_Type_Field` (`fight_type_id`, `field_id`) VALUES
 CREATE TABLE `Reservation` (
   `id` int(10) NOT NULL,
   `date` datetime DEFAULT NULL,
+  `timeslot` enum('Morning','Afternoon','Evening') NOT NULL,
   `is_cancelled` tinyint(1) DEFAULT NULL COMMENT '0 : not cancelled 1 : cancelled',
-  `timeslot_id` int(10) NOT NULL,
   `field_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
   `fight_type_id` int(10) NOT NULL
@@ -415,13 +417,13 @@ CREATE TABLE `Reservation` (
 -- Déchargement des données de la table `Reservation`
 --
 
-INSERT INTO `Reservation` (`id`, `date`, `is_cancelled`, `timeslot_id`, `field_id`, `user_id`, `fight_type_id`) VALUES
-(1, '2020-10-18 00:00:00', NULL, 1, 1, 1, 3),
-(2, '2020-10-19 00:00:00', NULL, 2, 2, 2, 4),
-(3, '2020-10-20 00:00:00', NULL, 3, 3, 3, 3),
-(4, '2020-10-21 00:00:00', NULL, 1, 4, 4, 4),
-(5, '2020-10-22 00:00:00', NULL, 1, 5, 5, 2),
-(6, '2020-10-23 00:00:00', 1, 2, 1, 6, 3);
+INSERT INTO `Reservation` (`id`, `date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES
+(1, '2020-10-18 00:00:00', 'Evening', NULL, 1, 1, 3),
+(2, '2020-10-19 00:00:00', 'Morning', NULL, 2, 2, 4),
+(3, '2020-10-20 00:00:00', 'Morning', NULL, 3, 3, 3),
+(4, '2020-10-21 00:00:00', 'Afternoon', NULL, 4, 4, 4),
+(5, '2020-10-22 00:00:00', 'Evening', NULL, 5, 5, 2),
+(6, '2020-10-23 00:00:00', 'Afternoon', 1, 1, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -446,26 +448,6 @@ INSERT INTO `Reservation_Equipment_Stock` (`reservation_id`, `equipment_stock_id
 (4, 30),
 (5, 59),
 (6, 112);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Timeslot`
---
-
-CREATE TABLE `Timeslot` (
-  `id` int(1) NOT NULL,
-  `slot` enum('Morning','Afternoon','Evening') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `Timeslot`
---
-
-INSERT INTO `Timeslot` (`id`, `slot`) VALUES
-(1, 'Morning'),
-(2, 'Afternoon'),
-(3, 'Evening');
 
 -- --------------------------------------------------------
 
@@ -550,7 +532,6 @@ ALTER TABLE `Reservation`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_used.id` (`user_id`) USING BTREE,
   ADD KEY `fk_field.id` (`field_id`) USING BTREE,
-  ADD KEY `fk_timeslot.id` (`timeslot_id`) USING BTREE,
   ADD KEY `fk_fight_type.id` (`fight_type_id`);
 
 --
@@ -560,13 +541,6 @@ ALTER TABLE `Reservation_Equipment_Stock`
   ADD PRIMARY KEY (`reservation_id`,`equipment_stock_id`) USING BTREE,
   ADD KEY `fk_reservation.id` (`reservation_id`),
   ADD KEY `equipment_stock_id` (`equipment_stock_id`);
-
---
--- Index pour la table `Timeslot`
---
-ALTER TABLE `Timeslot`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `slot_unique` (`slot`) USING BTREE;
 
 --
 -- Index pour la table `User`
@@ -611,12 +585,6 @@ ALTER TABLE `Reservation`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT pour la table `Timeslot`
---
-ALTER TABLE `Timeslot`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT pour la table `User`
 --
 ALTER TABLE `User`
@@ -652,7 +620,6 @@ ALTER TABLE `Fight_Type_Field`
 ALTER TABLE `Reservation`
   ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
   ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `Field` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`timeslot_id`) REFERENCES `Timeslot` (`id`),
   ADD CONSTRAINT `reservation_ibfk_4` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`);
 
 --

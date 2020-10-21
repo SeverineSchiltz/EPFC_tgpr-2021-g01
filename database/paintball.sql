@@ -6,6 +6,9 @@
 -- Généré le : lun. 19 oct. 2020 à 01:47 par Leyla Malsagova
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.2.27
+DROP DATABASE IF EXISTS paintball;
+CREATE DATABASE paintball;
+USE paintball;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;

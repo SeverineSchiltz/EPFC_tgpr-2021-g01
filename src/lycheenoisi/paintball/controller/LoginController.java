@@ -9,7 +9,7 @@ public class LoginController extends Controller {
 
     private final LoginView view = new LoginView();
 
-    private String askUsername() {
+    private Member askUsername() {
         String username;
         Member member;
         do {
@@ -39,7 +39,7 @@ public class LoginController extends Controller {
             var member = askUsername();
             askPassword(member);
             PaintballApp.setLoggedUser(member);
-            new MainMenuController().run(); //??? MainMenuMember() ?
+            new MainMenuMemberController().run(); //??? MainMenuMember() ?
         } catch (View.ActionInterruptedException e) {
             view.pausedWarning("aborted login");
         }

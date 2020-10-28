@@ -36,9 +36,9 @@ public class EditMenuController extends Controller{
                 view.displayHeader();
 
                 view.displayUsername(member.getUsername());
-                String firstname = view.askFirstname(member.getFirstname());
-                String lastname = view.askLastname(member.getLastname());
-                LocalDate birthdate = view.askBirthDate(member.getBirthdate());
+                String firstName = view.askFirstname(member.getFirstName());
+                String lastName = view.askLastname(member.getLastName());
+                LocalDate bitrhdate = view.askBirthDate(member.getBirthdate());
                 String email = view.askEmail(member.getEmail());
                 
                 boolean admin = member.isAdmin();
@@ -47,9 +47,9 @@ public class EditMenuController extends Controller{
                 else
                     view.displayAdmin(member.isAdmin());
                 
-                member.setFirstname(firstname);
-                member.setLastname(lastname);
-                member.setBirthdate(birthdate);
+                member.setFirstName(firstName);
+                member.setLastName(lastName);
+                member.setBirthdate(bitrhdate);
                 member.setEmail(email);
                 errors = member.validate();
                 if (errors.size() > 0)

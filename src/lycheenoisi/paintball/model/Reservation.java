@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reservation extends Model {
+
     private int id;
     private LocalDate date;
     private Timeslot timeslot;
@@ -13,6 +14,9 @@ public class Reservation extends Model {
     private Field field;
     private List<EquipmentType> equipmentTypeList = new ArrayList<>();
 
+    public int getId() {
+        return id;
+    }
 
     public LocalDate getDate() {
         return date;
@@ -36,6 +40,22 @@ public class Reservation extends Model {
 
     public void setCancelled(boolean cancelled) {
         isCancelled = cancelled;
+
+    }
+
+    public static void cancelReservation(int id) {
+        String requestSetIsCancelled = " UPDATE reservation SET is_cancelled = true where id = ?";
+        String requestDeleteReservationEquipmentStock = "DELETE from reservation_equipment_stock WHERE reservation_id = ?";
+        try {
+            var statementUpdate = db.prepareStatement(requestSetIsCancelled);
+            statementUpdate.setInt(1, id);
+            statementUpdate.executeQuery();
+            var statementDelete = db.prepareStatement(requestDeleteReservationEquipmentStock);
+            statementDelete.setInt(1, id);
+            statementDelete.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<Reservation> getReservationsNotCancelled(Member m) {

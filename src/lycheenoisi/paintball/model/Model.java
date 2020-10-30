@@ -25,4 +25,7 @@ public abstract class Model {
         }
     }
 
+    public boolean isAdmin() {
+        return false;
+    }
 }

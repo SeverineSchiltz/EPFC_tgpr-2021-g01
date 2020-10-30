@@ -1,5 +1,7 @@
 package lycheenoisi.paintball.model;
 
+import java.util.Date;
+
 public class Member extends Model {
     private String username;
 
@@ -21,5 +23,9 @@ public class Member extends Model {
 
     public String getPassword() {
         return "";
+    }
+
+    public static boolean addMember(String username, String firstname, String lastname, Date birthdate, String email, String password, String role) {
+        return true;
     }
 }

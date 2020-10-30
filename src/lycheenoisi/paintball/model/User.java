@@ -1,9 +1,12 @@
 package lycheenoisi.paintball.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public abstract class User extends Model{
@@ -13,6 +16,8 @@ public abstract class User extends Model{
     private LocalDate birthdate;
     private String email;
     private String password;
+
+    public User() {}
 
     public User(String username) {
         this.username = username;
@@ -127,7 +132,31 @@ public abstract class User extends Model{
 
     }
 
-    public static Member getByUsername(String username){
-        return null;
+    public static void mapper(ResultSet rs, User user) throws SQLException {
+        user.setUsername(rs.getString("username"));
+        user.setFirstName(rs.getString("firstname"));
+        user.setLastName(rs.getString("lastname"));
+        user.setBirthdate(rs.getObject("birthdate", LocalDate.class));
+//        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+    }
+
+    public static User getByUsername(String username) {
+        User user = null;
+        try {
+            String query = "select * from User where username=?";
+            var stmt = db.prepareStatement(query);
+            stmt.setString(1, username);
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                if(rs.getString("role").equals("member") ||
+                        rs.getString("role").equals("member vip"))
+                    user = new Member();
+                mapper(rs, user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (User)user;
     }
 }

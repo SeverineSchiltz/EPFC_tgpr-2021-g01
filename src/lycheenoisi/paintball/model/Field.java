@@ -21,6 +21,11 @@ public class Field extends Model{
         this.setPrice(price);
     }
 
+    @Override
+    public String toString(){
+        return "Name field: " + this.getName() + ", Description: " + this.description;
+    }
+
     public String getName() {
         return name;
     }

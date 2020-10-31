@@ -25,24 +25,6 @@ public class PaintballApp {
             new StartMenuController().run();
     }
 
-//    //test UC_DisplayReservations
-//    public static void main(String[] args) {
-//        if (!Model.checkDb()) {
-//            new ErrorView("Database is not available").close();
-//        }else {
-//            setLoggedUser(new Member("lmalsag"));
-//            new DisplayReservationsController().run();
-//        }
-//    }
-
-//    //test UC_CancelReservations
-//    public static void main(String[] args) {
-//        if (!Model.checkDb())
-//            new ErrorView("Database is not available").close();
-//        else
-//            setLoggedUser(new Member("lmalsag"));
-//            new CancelReservationController().run();
-//    }
 
 //    //public static void main(String[] args) {
 //        System.out.println("Ca compile! :-)");

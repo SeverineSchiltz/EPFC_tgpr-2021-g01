@@ -28,7 +28,6 @@ public class DisplayReservationsController extends Controller {
         try {
             var view = new DisplayReservationsView();
             View.Action res;
-            PaintballApp.setLoggedUser(new Member("lmalsag")); // à supprimer quand login sera fait
             do {
                 var current = PaintballApp.getLoggedUser();
                 var reservations = Reservation.getReservationsNotCancelled(current);

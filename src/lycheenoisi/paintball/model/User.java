@@ -1,5 +1,6 @@
 package lycheenoisi.paintball.model;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -16,12 +17,33 @@ public abstract class User extends Model{
     private LocalDate birthdate;
     private String email;
     private String password;
+    private Role role;
+
+    // Constructeurs
 
     public User() {}
 
     public User(String username) {
         this.username = username;
     }
+
+    public User(String username, String password, Role role){
+        this(username);
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(String username, String firstname, String lastname, LocalDate birthdate, String email,
+                String password, Role role) {
+        this(username, password, role);
+        this.firstName = firstname;
+        this.lastName = lastname;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Liste des accesseurs et mutateurs
 
     public String getUsername() {
         return username;
@@ -71,6 +93,16 @@ public abstract class User extends Model{
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    // Validations
+
     public static String isValidBirthdate(LocalDate birthdate) {
         if (birthdate == null)
             return null;
@@ -100,8 +132,11 @@ public abstract class User extends Model{
         return null;
     }
 
-    public boolean isAdmin(){
-        return true;// à modifier après avoir regarder les enum
+    // Role: to check
+    public static String isValidRole(Role role) {
+        if (role.equals("admin") || role.equals("employee") || role.equals("member") || role.equals("membervip"))
+            return "role should be 'admin' or 'employe' or 'member' or 'member vip'";
+        return null;
     }
 
     public List<String> validate() {
@@ -116,6 +151,8 @@ public abstract class User extends Model{
         if (err != null) errors.add(err);
         err = isValidEmail(email);
         if (err != null) errors.add(err);
+        err = isValidRole(role);
+        if (err != null) errors.add(err);
 
         // cross-fields validations
         /*if (profile != null && profile.equals(pseudo))
@@ -124,23 +161,36 @@ public abstract class User extends Model{
         return errors;
     }
 
-    public boolean save(){
-        return true;
+    // To check with enum
+
+    public boolean isAdmin() {
+        return this.getRole().equals(Role.admin);
     }
 
-    public void reload(){
-
+    public boolean isEmployee() {
+        return this.getRole().equals(Role.employee);
     }
 
+    public boolean isMember() {
+        return this.getRole().equals(Role.member);
+    }
+
+    public boolean isMemberVIP() {
+        return this.getRole().equals(Role.membervip);
+    }
+
+    // Method "mapper": check user.setRole
     public static void mapper(ResultSet rs, User user) throws SQLException {
         user.setUsername(rs.getString("username"));
         user.setFirstName(rs.getString("firstname"));
         user.setLastName(rs.getString("lastname"));
         user.setBirthdate(rs.getObject("birthdate", LocalDate.class));
-//        user.setEmail(rs.getString("email"));
+//        user.setEmail(rs.getString("email")); // pas d'adresses mail pour le moment
         user.setPassword(rs.getString("password"));
+        user.setRole(rs.getObject("role", Role.class));
     }
 
+    // Method "getByUsername": complete for "admin" and "employee"
     public static User getByUsername(String username) {
         User user = null;
         try {
@@ -159,4 +209,67 @@ public abstract class User extends Model{
         }
         return (User)user;
     }
+
+    public boolean save() {
+        User u = getByUsername(this.getUsername());
+        int count = 0;
+        try {
+            PreparedStatement stmt;
+            if (u == null) {
+                String query = "insert into User (username, firstname, lastname, birthdate, email, password, role) " +
+                        "values (?,?,?,?,?,?,?)";
+                stmt = db.prepareStatement(query);
+                stmt.setString(1, this.getUsername());
+                stmt.setString(2, this.getFirstName());
+                stmt.setString(3, this.getLastName());
+                stmt.setObject(4, this.getBirthdate());
+                stmt.setString(5, this.getEmail());
+                stmt.setString(6, this.getPassword());
+                stmt.setObject(7, this.getRole());
+            } else {
+                String query = "update User set firstname=?, lastname=?, birthdate=?, email=?, password=?, " +
+                        "role=? where username=?";
+                stmt = db.prepareStatement(query);
+                stmt.setString(1, this.getFirstName());
+                stmt.setString(2, this.getLastName());
+                stmt.setObject(3, this.getBirthdate());
+                stmt.setString(4, this.getEmail());
+                stmt.setString(5, this.getPassword());
+                stmt.setObject(6, this.getRole());
+                stmt.setString(7, this.getUsername());
+            }
+            count = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return count == 1;
+    }
+
+    public boolean delete() {
+        int count = 0;
+        try {
+            String query = "delete from User where username=?";
+            PreparedStatement stmt = db.prepareStatement(query);
+            stmt.setString(1, this.getUsername());
+            count = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return count == 1;
+    }
+
+    public void reload() {
+        try {
+            String query = "select * from User where username=?";
+            var stmt = Model.db.prepareStatement(query);
+            stmt.setString(1, this.getUsername());
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                mapper(rs, this);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

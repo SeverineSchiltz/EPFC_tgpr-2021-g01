@@ -1,6 +1,5 @@
 package lycheenoisi.paintball;
 import lycheenoisi.paintball.controller.CancelReservationController;
-import lycheenoisi.paintball.controller.DisplayReservationsController;
 import lycheenoisi.paintball.controller.LoginController;
 import lycheenoisi.paintball.controller.StartMenuController;
 import lycheenoisi.paintball.model.Model;
@@ -16,6 +15,10 @@ public class PaintballApp {
 
     public static Member getLoggedUser() {
         return loggedUser;
+    }
+
+    public static void logout() {
+        setLoggedUser(null);
     }
 
     public static void main(String[] args) {

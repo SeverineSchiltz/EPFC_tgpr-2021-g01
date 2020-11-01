@@ -24,4 +24,8 @@ public class EquipmentType extends Model{
     public void setRent_price(double rent_price) {
         this.rent_price = rent_price;
     }
+
+    public String toString(){
+        return "Reserved equipment: " + this.getName();
+    }
 }

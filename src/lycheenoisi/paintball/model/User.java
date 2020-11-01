@@ -164,19 +164,19 @@ public abstract class User extends Model{
     // To check with enum
 
     public boolean isAdmin() {
-        return this.getRole().equals(Role.admin);
+        return this.getRole().getNomDB().equals(Role.admin.getNomDB());
     }
 
     public boolean isEmployee() {
-        return this.getRole().equals(Role.employee);
+        return this.getRole().getNomDB().equals(Role.employee.getNomDB());
     }
 
     public boolean isMember() {
-        return this.getRole().equals(Role.member);
+        return this.getRole().getNomDB().equals(Role.member.getNomDB());
     }
 
     public boolean isMemberVIP() {
-        return this.getRole().equals(Role.membervip);
+        return this.getRole().getNomDB().equals(Role.membervip.getNomDB());
     }
 
     // Method "mapper": check user.setRole

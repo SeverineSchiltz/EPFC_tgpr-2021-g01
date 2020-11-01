@@ -12,15 +12,15 @@ import static org.junit.Assert.*;
 
 public class PaintballAppTest {
 
-    @Test //plus utilisé:
-    public void test_UC_DisplayReservations(){
-        if (!Model.checkDb()) {
-            new ErrorView("Database is not available").close();
-        }else {
-            setLoggedUser(new Member("sschilt"));
-            new DisplayReservationsController().run();
-        }
-    }
+//    @Test //plus utilisé:
+//    public void test_UC_DisplayReservations(){
+//        if (!Model.checkDb()) {
+//            new ErrorView("Database is not available").close();
+//        }else {
+//            setLoggedUser(new Member("sschilt"));
+//            new DisplayReservationsController().run();
+//        }
+//    }
 
     @Test
     public void test_UC_CancelReservations(){

@@ -95,7 +95,7 @@ public class Member extends Model {
     }
 
     public static String isValidEmail(String email) {
-        if (email == null || !Pattern.matches("[a-zA-Z0-9\.]*@[a-zA-Z0-9]*\.[a-zA-Z0-9]*", email))
+        if (email == null || !Pattern.matches("[a-zA-Z0-9\\.]*@[a-zA-Z0-9]*\\.[a-zA-Z0-9]*", email))
             //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
             return "invalid password";
         return null;

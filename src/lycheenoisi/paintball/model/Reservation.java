@@ -97,18 +97,14 @@ public class Reservation extends Model {
                     r = new Reservation();
                     r.id = rs.getInt("id");
                     r.setDate(rs.getObject("date", LocalDate.class));
-                    switch(rs.getString("timeslot")) {
-                        case "Morning":
-                            r.setTimeslot(Morning);
-                            break;
-                        case "Afternoon":
-                            r.setTimeslot(Afternoon);
-                            break;
-                        case "Evening":
-                            r.setTimeslot(Evening);
-                            break;
+                    String tmsl = rs.getString("timeslot");
+                    if(tmsl.equals(Morning.getNomDB())){
+                        r.setTimeslot(Morning);
+                    }else if(tmsl.equals(Afternoon.getNomDB())){
+                        r.setTimeslot(Afternoon);
+                    }else if(tmsl.equals(Evening.getNomDB())){
+                        r.setTimeslot(Evening);
                     }
-                    //r.setTimeslot(rs.getObject("timeslot", Timeslot.class)); //à voir comment le reprendre
                     r.setCancelled(false);
                     var f = new Field(rs.getString("field_name"), rs.getString("field_description"), rs.getBoolean("is_inside"), rs.getInt("level"), rs.getInt("max_players"), rs.getInt("min_players"), rs.getBoolean("vip"), rs.getDouble("price"));
                     r.setField(f);
@@ -131,7 +127,7 @@ public class Reservation extends Model {
             equipments += eq.toString() + ", ";
         }
         String dt = this.getDate().getDayOfMonth() + "/" + this.getDate().getMonthValue() + "/" + this.getDate().getYear();
-        return "Numéro de reservation : " + this.id + "; Date : " + dt + " " + this.timeslot + "; [" + this.getField() + "]; [" + equipments + "]";
+        return "Reservation Date : " + dt + " " + this.timeslot + "; [" + this.getField() + "]; [" + equipments + "]";
     }
 
     public void cancelReservation(){

@@ -17,7 +17,7 @@ public class PaintballAppTest {
         if (!Model.checkDb()) {
             new ErrorView("Database is not available").close();
         }else {
-            setLoggedUser(new Member("lmalsag"));
+            setLoggedUser(new Member("sschilt"));
             new DisplayReservationsController().run();
         }
     }

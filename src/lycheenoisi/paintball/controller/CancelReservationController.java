@@ -21,7 +21,7 @@ public class CancelReservationController {
         view.println("Voici vos réservations: ");
         int i = 1;
         for(Reservation r : res) {
-            System.out.println(i + ") " + r);
+            view.println(i + ") " + r);
             ++i;
         }
         view.println("Veuillez séléctionner une réservation à annuler: ");

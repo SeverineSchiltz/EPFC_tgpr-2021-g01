@@ -20,14 +20,9 @@ public class PaintballApp {
 
     //test UC_DisplayReservations
     public static void main(String[] args) {
-
         if (!Model.checkDb())
-
             new ErrorView("Database is not available").close();
-
         else
-
             new StartMenuController().run();
     }
-
 }

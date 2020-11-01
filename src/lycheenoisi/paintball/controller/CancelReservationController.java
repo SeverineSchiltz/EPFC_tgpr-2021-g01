@@ -11,7 +11,7 @@ public class CancelReservationController {
     private final CancelReservationView view = new CancelReservationView();
 
     public void run() {
-        Member m = PaintballApp.getLoggedUser();
+        Member m = (Member)PaintballApp.getLoggedUser();
         List<Reservation> res = Reservation.getReservationsNotCancelled(m);
 
         if (res.size() == 0) {

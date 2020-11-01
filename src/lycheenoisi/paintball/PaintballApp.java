@@ -20,13 +20,13 @@ public class PaintballApp {
     //test UC_DisplayReservations
     public static void main(String[] args) {
         //new MemberListController().run();
-        setLoggedUser(new Member("nvorkap"));
+        //setLoggedUser(new Member("nvorkap"));
         if (!Model.checkDb())
             new ErrorView("Database is not available").close();
         else
             //new MemberListController().run();
-            //new LoginController().run();
-        new CancelReservationController().run();
+            new LoginController().run();
+            //new CancelReservationController().run();
     }
 
 //    //public static void main(String[] args) {

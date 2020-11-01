@@ -199,8 +199,8 @@ public abstract class User extends Model{
             stmt.setString(1, username);
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                if(rs.getString("role").equals("member") ||
-                        rs.getString("role").equals("member vip"))
+                if(rs.getString("role").equals(Role.member.getNomDB()) ||
+                        rs.getString("role").equals(Role.membervip.getNomDB()))
                     user = new Member();
                 mapper(rs, user);
             }

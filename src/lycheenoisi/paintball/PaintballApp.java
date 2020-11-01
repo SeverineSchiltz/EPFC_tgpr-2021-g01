@@ -25,4 +25,12 @@ public class PaintballApp {
         else
             new StartMenuController().run();
     }
+
+
+//    //public static void main(String[] args) {
+
+//        System.out.println("Ca compile! :-)");
+
+//    }
+
 }

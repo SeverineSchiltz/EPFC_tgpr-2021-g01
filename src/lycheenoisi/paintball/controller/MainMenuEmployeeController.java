@@ -3,6 +3,7 @@ package lycheenoisi.paintball.controller;
 import lycheenoisi.paintball.PaintballApp;
 import lycheenoisi.paintball.view.MainMenuEmployeeView;
 import lycheenoisi.paintball.view.View;
+import static lycheenoisi.paintball.model.Role.*;
 
 public class MainMenuEmployeeController extends Controller {
 
@@ -15,21 +16,20 @@ public class MainMenuEmployeeController extends Controller {
                 var current = PaintballApp.getLoggedUser();
                 int size = 0;
 
-                res = view.askForActionAdmin(size); // à modifier dès que les classes Role, USER et Employee seront commitées
-//                if (current.role...)
-//                    res = view.askForActionAdmin(size);
-//                else
-//                    res = view.askForAction(size);
+                if (current.getRole().equals(admin))
+                    res = view.askForActionAdmin(size);
+                else
+                    res = view.askForAction(size);
 
                 switch (res.getAction()) {
                     case 'M':
                         //new DisplayMembers().run();
                         break;
                     case 'R':
-                        //new DisplayReservations().run();
+                        //new DisplayFuturReservations().run();
                         break;
                     case 'E':
-                        //new DisplayEmployees().run();
+                        new DisplayEmployeesController().run();
                         break;
                 }
             } while (res.getAction() != 'L');

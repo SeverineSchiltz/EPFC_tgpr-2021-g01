@@ -2,6 +2,7 @@ package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
 import lycheenoisi.paintball.model.Member;
+import lycheenoisi.paintball.model.Role;
 import lycheenoisi.paintball.model.User;
 import lycheenoisi.paintball.view.View;
 import lycheenoisi.paintball.view.LoginView;
@@ -40,7 +41,10 @@ public class LoginController extends Controller {
             var user = askUsername();
             askPassword(user);
             PaintballApp.setLoggedUser(user);
-            new MainMenuMemberController().run();
+            if(user.getRole().equals(Role.employee) || user.getRole().equals(Role.admin))
+                new MainMenuEmployeeController().run();
+            else
+                new MainMenuMemberController().run();
         } catch (View.ActionInterruptedException e) {
             view.pausedWarning("aborted login");
         }

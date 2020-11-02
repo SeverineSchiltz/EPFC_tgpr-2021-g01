@@ -3,7 +3,7 @@ package lycheenoisi.paintball.model;
 public enum Role {
 
     admin("admin"),
-    employee("employee"),
+    employee("employe"),
     member("member"),
     membervip("member vip");
 

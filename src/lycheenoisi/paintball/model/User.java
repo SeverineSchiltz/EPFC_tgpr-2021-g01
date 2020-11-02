@@ -1,8 +1,6 @@
 package lycheenoisi.paintball.model;
 
 import static lycheenoisi.paintball.model.Role.*;
-import static lycheenoisi.paintball.model.Timeslot.*;
-import static lycheenoisi.paintball.model.Timeslot.Evening;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +13,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public abstract class User extends Model{
+    private int id;
     private String username;
     private String firstName;
     private String lastName;
@@ -185,6 +184,7 @@ public abstract class User extends Model{
 
     // Method "mapper": check user.setRole
     public static void mapper(ResultSet rs, User user) throws SQLException {
+        user.setId(rs.getInt("id"));
         user.setUsername(rs.getString("username"));
         user.setFirstName(rs.getString("firstname"));
         user.setLastName(rs.getString("lastname"));
@@ -197,6 +197,10 @@ public abstract class User extends Model{
             user.setRole(member);
         }else if(userRole.equals(membervip.getNomDB())){
             user.setRole(membervip);
+        }else if(userRole.equals(employee.getNomDB())) {
+            user.setRole(employee);
+        }else if(userRole.equals(admin.getNomDB())) {
+            user.setRole(admin);
         }
     }
 
@@ -212,12 +216,15 @@ public abstract class User extends Model{
                 if(rs.getString("role").equals(member.getNomDB()) ||
                         rs.getString("role").equals(membervip.getNomDB()))
                     user = new Member();
+                else if(rs.getString("role").equals(admin.getNomDB()) ||
+                        rs.getString("role").equals(employee.getNomDB()))
+                    user = new Employee();
                 mapper(rs, user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return (User)user;
+        return user;
     }
 
     public boolean save() {
@@ -282,4 +289,15 @@ public abstract class User extends Model{
         }
     }
 
+    public String toString(){
+        return this.getRole().getNomDB() + ": " + this.getUsername() + "; Nom : " + this.getFirstName() + "; Prenom: " + this.getUsername();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

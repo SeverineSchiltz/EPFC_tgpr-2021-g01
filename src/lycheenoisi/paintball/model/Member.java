@@ -12,7 +12,8 @@ public class Member extends User {
         super(username);
     }
 
-    public Member() {}
+    public Member() {
+    }
 
     // List of all members (VIP included)
     // Query ok
@@ -20,7 +21,7 @@ public class Member extends User {
         var list = new ArrayList<Member>();
         try {
             String query = "SELECT * FROM User ";
-            query += "WHERE role = 'Role.member.getNomDB()' OR role = 'Role.membervip.getNomDB()'";
+            query += "WHERE role = '" + Role.member.getNomDB() + "' OR role = '" + Role.membervip.getNomDB() + "'";
             query += "ORDER BY username";
             var stmt = db.prepareStatement(query);
             var rs = stmt.executeQuery();
@@ -42,7 +43,6 @@ public class Member extends User {
             return "invalid password";
         return null;
     }
-
 
 
 }

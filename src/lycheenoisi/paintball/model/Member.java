@@ -36,13 +36,13 @@ public class Member extends User {
         return list;
     }
 
-
-    public static String isValidEmail(String email) {
-        if (email == null || !Pattern.matches("[a-zA-Z0-9/.]*@[a-zA-Z0-9]*/.[a-zA-Z0-9]*", email))
-            //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
-            return "invalid password";
-        return null;
-    }
+// est déjà dans la classe User
+//    public static String isValidEmail(String email) {
+//        if (email == null || !Pattern.matches("[a-zA-Z0-9/.]*@[a-zA-Z0-9]*/.[a-zA-Z0-9]*", email))
+//            //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
+//            return "invalid password";
+//        return null;
+//    }
 
 
 }

@@ -123,21 +123,35 @@ public abstract class User extends Model{
     }
 
     public static String isValidPassword(String password) {
-        if (password == null || !Pattern.matches("[a-zA-Z0-9]{3,}", password))
-            return "invalid password";
+//        if (password == null || !Pattern.matches("[a-zA-Z0-9]{3,}", password))
+//            return "invalid password";
+        if (!isMin3Char(password))
+            return "password must have 3 characters minimum";
         return null;
     }
 
+    public static boolean isMin3Char(String word) {
+        return word.length() >2;
+    }
+
     public static String isValidEmail(String email) {
-        if (email == null || !Pattern.matches("[a-zA-Z0-9\\.]*@[a-zA-Z0-9]*\\.[a-zA-Z0-9]*", email))
-            //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
-            return "invalid password";
+        if (email == null || !Pattern.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", email))
+            return "invalid email";
+
+        //apr!s test: ne fonctionne pas:
+//        if (email == null || !Pattern.matches("[a-zA-Z0-9/.]*@[a-zA-Z0-9]*/.[a-zA-Z0-9]*", email))
+//            return "invalid email";
+
+//        if (email == null || !Pattern.matches("[a-zA-Z0-9\\.]*@[a-zA-Z0-9]*\\.[a-zA-Z0-9]*", email))
+//            //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
+//            return "invalid email";
+
         return null;
     }
 
     // Role: to check
     public static String isValidRole(Role role) {
-        if (role.equals("admin") || role.equals("employee") || role.equals("member") || role.equals("membervip"))
+        if (!role.equals(admin) && !role.equals(employee) && !role.equals(member) && !role.equals(membervip))
             return "role should be 'admin' or 'employe' or 'member' or 'member vip'";
         return null;
     }
@@ -233,7 +247,7 @@ public abstract class User extends Model{
         try {
             PreparedStatement stmt;
             if (u == null) {
-                String query = "insert into User (username, firstname, lastname, birthdate, email, password, role) " +
+                String query = "insert into User (username, firstname, lastname, birthdate, `e-mail`, password, role) " +
                         "values (?,?,?,?,?,?,?)";
                 stmt = db.prepareStatement(query);
                 stmt.setString(1, this.getUsername());
@@ -242,9 +256,9 @@ public abstract class User extends Model{
                 stmt.setObject(4, this.getBirthdate());
                 stmt.setString(5, this.getEmail());
                 stmt.setString(6, this.getPassword());
-                stmt.setObject(7, this.getRole());
+                stmt.setString(7, this.getRole().getNomDB());
             } else {
-                String query = "update User set firstname=?, lastname=?, birthdate=?, email=?, password=?, " +
+                String query = "update User set firstname=?, lastname=?, birthdate=?, `e-mail` =?, password=?, " +
                         "role=? where username=?";
                 stmt = db.prepareStatement(query);
                 stmt.setString(1, this.getFirstName());
@@ -252,7 +266,7 @@ public abstract class User extends Model{
                 stmt.setObject(3, this.getBirthdate());
                 stmt.setString(4, this.getEmail());
                 stmt.setString(5, this.getPassword());
-                stmt.setObject(6, this.getRole());
+                stmt.setString(6, this.getRole().getNomDB());
                 stmt.setString(7, this.getUsername());
             }
             count = stmt.executeUpdate();
@@ -300,4 +314,7 @@ public abstract class User extends Model{
     public void setId(int id) {
         this.id = id;
     }
+
+
+
 }

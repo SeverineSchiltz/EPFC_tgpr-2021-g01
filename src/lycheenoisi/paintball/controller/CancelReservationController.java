@@ -7,7 +7,7 @@ import lycheenoisi.paintball.view.CancelReservationView;
 
 import java.util.List;
 
-public class CancelReservationController {
+public class CancelReservationController extends Controller{
     private final CancelReservationView view = new CancelReservationView();
 
     public void run() {

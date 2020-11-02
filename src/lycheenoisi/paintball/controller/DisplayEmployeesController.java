@@ -20,7 +20,7 @@ public class DisplayEmployeesController extends Controller {
                 res = view.askForAction(employees.size());
                 switch (res.getAction()) {
                     case 'A':
-                        //new AddEmployeeController().run();
+                        new AddEmployeeController().run();
                         break;
                     case 'D':
                         Employee e = employees.get(res.getNumber() - 1);

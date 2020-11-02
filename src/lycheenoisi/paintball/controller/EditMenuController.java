@@ -2,6 +2,7 @@ package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
 import lycheenoisi.paintball.model.Member;
+import lycheenoisi.paintball.model.User;
 import lycheenoisi.paintball.view.EditMenuView;
 import lycheenoisi.paintball.view.View;
 
@@ -31,7 +32,7 @@ public class EditMenuController extends Controller{
         View.Action res;
         List<String> errors;
         try{
-            Member current = PaintballApp.getLoggedUser();
+            Member current = (Member)PaintballApp.getLoggedUser();
             do{
                 view.displayHeader();
 

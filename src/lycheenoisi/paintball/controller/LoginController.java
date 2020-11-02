@@ -40,7 +40,7 @@ public class LoginController extends Controller {
             var user = askUsername();
             askPassword(user);
             PaintballApp.setLoggedUser(user);
-            new CancelReservationController().run(); //??? MainMenuMember() ?
+            new MainMenuMemberController().run();
         } catch (View.ActionInterruptedException e) {
             view.pausedWarning("aborted login");
         }

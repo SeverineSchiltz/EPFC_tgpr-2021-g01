@@ -1,5 +1,9 @@
 package lycheenoisi.paintball.model;
 
+import static lycheenoisi.paintball.model.Role.*;
+import static lycheenoisi.paintball.model.Timeslot.*;
+import static lycheenoisi.paintball.model.Timeslot.Evening;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -187,7 +191,13 @@ public abstract class User extends Model{
         user.setBirthdate(rs.getObject("birthdate", LocalDate.class));
 //        user.setEmail(rs.getString("email")); // pas d'adresses mail pour le moment
         user.setPassword(rs.getString("password"));
-        user.setRole(rs.getObject("role", Role.class));
+        //user.setRole(rs.getObject("role", Role.class));
+        String userRole = rs.getString("role");
+        if(userRole.equals(member.getNomDB())){
+            user.setRole(member);
+        }else if(userRole.equals(membervip.getNomDB())){
+            user.setRole(membervip);
+        }
     }
 
     // Method "getByUsername": complete for "admin" and "employee"
@@ -199,8 +209,8 @@ public abstract class User extends Model{
             stmt.setString(1, username);
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                if(rs.getString("role").equals(Role.member.getNomDB()) ||
-                        rs.getString("role").equals(Role.membervip.getNomDB()))
+                if(rs.getString("role").equals(member.getNomDB()) ||
+                        rs.getString("role").equals(membervip.getNomDB()))
                     user = new Member();
                 mapper(rs, user);
             }

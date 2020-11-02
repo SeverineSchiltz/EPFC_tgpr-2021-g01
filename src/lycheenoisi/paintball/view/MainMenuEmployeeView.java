@@ -6,12 +6,12 @@ public class MainMenuEmployeeView extends View {
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n[M] Display members, [R] Display all reservation, [L] Logout",
+        return doAskForAction(size, "\n[M] Display members, [R] Display all reservations, [L] Logout",
                 "[mM]+|[rR]+|[lL]");
     }
 
     public View.Action askForActionAdmin(int size) {
-        return doAskForAction(size, "\n[M] Display members, [R] Display all reservation,[E] Display employees, [L] Logout",
+        return doAskForAction(size, "\n[M] Display members, [R] Display all reservations,[E] Display employees, [L] Logout",
                 "[mM]+|[rR]+|[eE]+|[lL]");
     }
 

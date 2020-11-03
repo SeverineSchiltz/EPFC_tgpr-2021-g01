@@ -1,10 +1,8 @@
 package lycheenoisi.paintball.test;
 
-import lycheenoisi.paintball.PaintballApp;
 import lycheenoisi.paintball.controller.CancelReservationController;
 import lycheenoisi.paintball.controller.DisplayReservationsController;
 import lycheenoisi.paintball.controller.MainMenuEmployeeController;
-import lycheenoisi.paintball.model.Employee;
 import lycheenoisi.paintball.model.Member;
 import lycheenoisi.paintball.model.Model;
 import lycheenoisi.paintball.model.User;
@@ -13,7 +11,6 @@ import org.junit.Test;
 
 import static lycheenoisi.paintball.PaintballApp.setLoggedUser;
 import static lycheenoisi.paintball.model.User.getByUsername;
-import static org.junit.Assert.*;
 
 public class PaintballAppTest {
     
@@ -44,7 +41,8 @@ public class PaintballAppTest {
         if (!Model.checkDb()) {
             new ErrorView("Database is not available").close();
         }else {
-            setLoggedUser(getByUsername("sschilt")); //member
+            User user = getByUsername("sschilt");
+            setLoggedUser(user); //member
             //setLoggedUser(getByUsername("cjadot")); //member vip
             new DisplayReservationsController().run();
         }

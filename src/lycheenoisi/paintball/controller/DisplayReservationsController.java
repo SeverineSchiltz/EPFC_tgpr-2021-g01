@@ -19,7 +19,11 @@ public class DisplayReservationsController extends Controller {
                 var reservations = Reservation.getReservationsNotCancelled(current);
                 view.displayHeader();
                 view.displayReservations(reservations);
-                res = view.askForAction(reservations.size());
+                if (!reservations.isEmpty() ) {
+                    res = view.askForAction(reservations.size());
+                }else{
+                    res = view.askForActionNotCancel(reservations.size());
+                }
                 switch (res.getAction()) {
                     case 'C':
                         new CancelReservationController().run();

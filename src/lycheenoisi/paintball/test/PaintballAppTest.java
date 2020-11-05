@@ -1,6 +1,7 @@
 package lycheenoisi.paintball.test;
 
 import lycheenoisi.paintball.controller.CancelReservationController;
+import lycheenoisi.paintball.controller.DisplayAvailableFieldsController;
 import lycheenoisi.paintball.controller.DisplayReservationsController;
 import lycheenoisi.paintball.controller.MainMenuEmployeeController;
 import lycheenoisi.paintball.model.Member;
@@ -45,6 +46,17 @@ public class PaintballAppTest {
             setLoggedUser(user); //member
             //setLoggedUser(getByUsername("cjadot")); //member vip
             new DisplayReservationsController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_DisplayAvailableFieldsController(){     /* LEYLA TEST */
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag");
+            setLoggedUser(user);
+            new DisplayAvailableFieldsController().run();
         }
     }
 

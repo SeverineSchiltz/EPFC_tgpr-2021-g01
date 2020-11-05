@@ -1,6 +1,6 @@
 package lycheenoisi.paintball.model;
 
-public class FightType {
+public class FightType extends Model {
     private String name;
     private String description;
 

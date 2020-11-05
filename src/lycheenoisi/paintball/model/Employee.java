@@ -10,9 +10,7 @@ public class Employee extends User{
         super(username);
     }
 
-    public Employee() {
-
-    }
+    public Employee() { }
 
     public static List<Employee> getAllEmployees() {
         var list = new ArrayList<Employee>();

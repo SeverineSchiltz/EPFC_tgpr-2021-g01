@@ -121,32 +121,22 @@ public class Field extends Model{
     }
 
     public static ArrayList<Field> getAvailableFields(LocalDate date, Timeslot timeslot, String fightType){
-         /*     select * from Field f
-        left join Reservation r on f.id = r.field_id
-        ++ to add >> join fight type et check fight type en input
-        where not EXISTS(
-                select * from Reservation r2
-                where r2.field_id = f.id and r2.timeslot = 1 and r2.date = str_to_date('2020,10,19','%Y,%m,%d')
-                */
 
-        String request = "SELECT f.id, f.name, f.max_players, f.min_players, f.price";
-        request += "from  Field f";
-        request += "inner join Fight_Type_Field ftf on f.id = ftf.field_id";
-        request += "inner join Fight_Type ft on ftf.fight_type_id = ft.id";
-        request += "WHERE ft.name = ?";
-        request += "AND NOT EXISTS(";
-                request += "SELECT 1 FROM Reservation r2";
-                request += "WHERE r2.field_id = f.id";
-                request += "AND r2.date = ?";
-                request += "AND r2.timeslot = ?)";
+        String request = "SELECT f.id 'id', f.name 'name', f.max_players 'max_players', f.min_players 'min_players', f.price 'price' from  Field f";
+        request += " inner join Fight_Type_Field ftf on f.id = ftf.field_id";
+        request += " inner join Fight_Type ft on ftf.fight_type_id = ft.id";
+        request += " WHERE NOT EXISTS(SELECT * FROM Reservation r2 WHERE r2.field_id = f.id";
+        request += " AND r2.date = ? ";
+        request += " AND r2.timeslot = ? )";
+        request += " AND ft.name = ?";
 
         var fields = new ArrayList<Field>();
         try {
-            System.out.println(fightType);
             var stmt = db.prepareStatement(request);
-            stmt.setString(1,fightType);
-            stmt.setDate(2, java.sql.Date.valueOf(date));
-            stmt.setInt(3, timeslot.getId());
+
+            stmt.setDate(1, java.sql.Date.valueOf(date));
+            stmt.setInt(2, timeslot.getId());
+            stmt.setString(3,fightType);
 
             var rs = stmt.executeQuery();
             while (rs.next()) {
@@ -156,7 +146,6 @@ public class Field extends Model{
                     f.setMaxPlayers(rs.getInt("max_players"));
                     f.setMinPlayers(rs.getInt("min_players"));
                     f.setPrice(rs.getDouble("price"));
-
                     fields.add(f);
             }
         } catch (SQLException e) {

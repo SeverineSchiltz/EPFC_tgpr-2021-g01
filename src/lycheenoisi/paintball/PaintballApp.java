@@ -20,7 +20,6 @@ public class PaintballApp {
         return loggedUser;
     }
 
-
     public static boolean isLogged() {
         return loggedUser != null;
     }

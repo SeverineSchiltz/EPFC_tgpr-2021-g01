@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public abstract class View {
+
     public static class ActionInterruptedException extends RuntimeException {
         private static final long serialVersionUID = 1L;
     }
@@ -212,6 +213,21 @@ public abstract class View {
             }
         } while (hasError);
         return value;
+    }
+
+    public int askInt(String prompt) {
+        boolean hasError;
+        int out = 0;
+        do {
+            hasError = false;
+            try {
+                out = Integer.parseInt(askString(prompt, ""));
+            } catch (Exception e) {
+                error("invalid number");
+                hasError = true;
+            }
+        } while (hasError);
+        return out;
     }
 
     public void showErrors(List<String> errors) {

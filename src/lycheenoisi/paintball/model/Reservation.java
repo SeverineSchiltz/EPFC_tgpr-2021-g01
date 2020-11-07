@@ -1,5 +1,6 @@
 package lycheenoisi.paintball.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,6 +57,32 @@ public class Reservation extends Model {
             var statementDelete = db.prepareStatement(requestDeleteReservationEquipmentStock);
             statementDelete.setInt(1, id);
             statementDelete.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createReservation(LocalDate date, Timeslot timeslot, int fieldId, int userId, String fightType) {
+        String requestNameFT = " SELECT * FROM fight_type where name = ?";
+        try {
+            var statementNameFT = db.prepareStatement(requestNameFT);
+            statementNameFT.setString(1, fightType);
+            var rs = statementNameFT.executeQuery();
+            int fightTypeId = 0;
+            while (rs.next()) {
+                fightTypeId = rs.getInt("id");
+            }
+
+
+        String requestCreateReservation = " INSERT into RESERVATION (`date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES (?, ?, NULL, ?, ?, ?)";
+
+            var statementCreate = db.prepareStatement(requestCreateReservation);
+            statementCreate.setDate(1, Date.valueOf(date));
+            statementCreate.setString(2, timeslot.getNomDB());
+            statementCreate.setInt(3, fieldId);
+            statementCreate.setInt(4, userId);
+            statementCreate.setInt(5, fightTypeId);
+            statementCreate.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }

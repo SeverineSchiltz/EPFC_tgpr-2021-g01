@@ -1,7 +1,6 @@
 package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
-import lycheenoisi.paintball.model.Member;
 import lycheenoisi.paintball.model.User;
 import lycheenoisi.paintball.view.EditMenuView;
 import lycheenoisi.paintball.view.View;
@@ -10,11 +9,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class EditMenuController extends Controller{
-    private final Member member;
+    private final User user;
     private final EditMenuView view = new EditMenuView();
 
-    public EditMenuController(Member member) {
-        this.member = member;
+    public EditMenuController(User user) {
+        this.user = user;
     }
 
     public LocalDate askBirthDate(LocalDate actual) {
@@ -22,7 +21,7 @@ public class EditMenuController extends Controller{
         String error;
         do {
             date = view.askBirthDate(actual);
-            error = Member.isValidBirthdate(date);
+            error = User.isValidBirthdate(date);
             if (error != null) view.error(error);
         } while (error != null);
         return date;
@@ -32,38 +31,38 @@ public class EditMenuController extends Controller{
         View.Action res;
         List<String> errors;
         try{
-            Member current = (Member)PaintballApp.getLoggedUser();
+            User current = (User)PaintballApp.getLoggedUser();
             do{
                 view.displayHeader();
 
-                view.displayUsername(member.getUsername());
-                String firstName = view.askFirstname(member.getFirstName());
-                String lastName = view.askLastname(member.getLastName());
-                LocalDate bitrhdate = view.askBirthDate(member.getBirthdate());
-                String email = view.askEmail(member.getEmail());
+                view.displayUsername(user.getUsername());
+                String firstName = view.askFirstname(user.getFirstName());
+                String lastName = view.askLastname(user.getLastName());
+                LocalDate bitrhdate = view.askBirthDate(user.getBirthdate());
+                String email = view.askEmail(user.getEmail());
                 
-                boolean admin = member.isAdmin();
-                if (current.isAdmin() && !member.equals(current))
+                boolean admin = user.isAdmin();
+                if (current.isAdmin() && !user.equals(current))
                     admin = view.askAdmin(admin);
                 else
-                    view.displayAdmin(member.isAdmin());
+                    view.displayAdmin(user.isAdmin());
                 
-                member.setFirstName(firstName);
-                member.setLastName(lastName);
-                member.setBirthdate(bitrhdate);
-                member.setEmail(email);
-                errors = member.validate();
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setBirthdate(bitrhdate);
+                user.setEmail(email);
+                errors = user.validate();
                 if (errors.size() > 0)
                     view.showErrors(errors);
             } while (errors.size() >0);
 
             res = view.askForAction();
             if (res.getAction() == 'O')
-                member.save();
+                user.save();
             else
-                member.reload();
+                user.reload();
         } catch (View.ActionInterruptedException e){
-            member.reload();
+            user.reload();
             view.pausedWarning("Edit profile aborted");
         }
     }

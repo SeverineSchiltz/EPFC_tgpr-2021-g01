@@ -11,6 +11,8 @@ public class CancelReservationController extends Controller{
     private final CancelReservationView view = new CancelReservationView();
 
     public void run() {
+        view.displayHeader("Annuler une réservation:");
+
         Member m = (Member)PaintballApp.getLoggedUser();
         List<Reservation> res = Reservation.getReservationsNotCancelled(m);
 
@@ -24,8 +26,10 @@ public class CancelReservationController extends Controller{
             view.println(i + ") " + r);
             ++i;
         }
-        view.println("Veuillez séléctionner une réservation à annuler: ");
+        view.println("Veuillez séléctionner une réservation à annuler ou entrez 0 pour revenir: ");
         int cancelNumber = view.askCancelReservationNumber();
+        if (cancelNumber == 0)
+            return;
         while (cancelNumber > res.size()) {
             view.println("Numéro de réservation non existant! ");
             cancelNumber = view.askCancelReservationNumber();

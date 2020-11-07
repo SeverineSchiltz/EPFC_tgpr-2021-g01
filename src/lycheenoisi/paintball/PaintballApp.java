@@ -1,7 +1,7 @@
 package lycheenoisi.paintball;
 
-import lycheenoisi.paintball.controller.CancelReservationController;
-import lycheenoisi.paintball.controller.LoginController;
+//import lycheenoisi.paintball.controller.CancelReservationController;
+//import lycheenoisi.paintball.controller.LoginController;
 import lycheenoisi.paintball.controller.StartMenuController;
 import lycheenoisi.paintball.model.Model;
 import lycheenoisi.paintball.model.User;

@@ -1,7 +1,7 @@
 package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
-import lycheenoisi.paintball.model.Member;
+//import lycheenoisi.paintball.model.Member;
 import lycheenoisi.paintball.model.Role;
 import lycheenoisi.paintball.model.User;
 import lycheenoisi.paintball.view.View;

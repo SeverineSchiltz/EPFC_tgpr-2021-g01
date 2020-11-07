@@ -1,5 +1,5 @@
 package lycheenoisi.paintball.view;
-import lycheenoisi.paintball.PaintballApp;
+//import lycheenoisi.paintball.PaintballApp;
 import org.beryx.textio.ReadHandlerData;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;

@@ -6,18 +6,15 @@
 -- Généré le : lun. 19 oct. 2020 à 01:57 par Leyla Malsagova
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.2.27
-DROP DATABASE IF EXISTS paintball;
-CREATE DATABASE paintball;
-USE paintball;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-DROP DATABASE IF EXISTS paintball;
-CREATE DATABASE paintball;
-USE paintball;
+DROP DATABASE IF EXISTS `tgpr-2021-g01-paintball`;
+CREATE DATABASE `tgpr-2021-g01-paintball`;
+USE `tgpr-2021-g01-paintball`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;

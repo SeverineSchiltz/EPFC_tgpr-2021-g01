@@ -9,7 +9,7 @@ public abstract class Model {
 
     static {
         try {
-            db = DriverManager.getConnection("jdbc:mariadb://localhost:3306/paintball?user=root&password=root");
+            db = DriverManager.getConnection("jdbc:mariadb://localhost:3306/tgpr-2021-g01-paintball?user=root&password=root");
         } catch (SQLException e) {
             e.printStackTrace();
         }

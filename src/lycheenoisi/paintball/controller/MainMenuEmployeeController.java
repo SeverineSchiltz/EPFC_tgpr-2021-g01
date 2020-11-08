@@ -24,16 +24,13 @@ public class MainMenuEmployeeController extends Controller {
 
                 switch (res.getAction()) {
                     case 'M':
-                        //new DisplayMembers().run();
+                        new DisplayMembersController().run();
                         break;
                     case 'R':
                         //new DisplayFuturReservations().run();
                         break;
                     case 'E':
                         new DisplayEmployeesController().run();
-                        break;
-                    case 'B':
-                        new BookFieldAndEquipmentController().run();
                         break;
                 }
             } while (res.getAction() != 'L');

@@ -64,10 +64,12 @@ public class PaintballAppTest {
         }else {
             //User user = getByUsername("sschilt"); //member
             //User user = getByUsername("cjadot"); //member vip
-            User user = getByUsername("nvorkap"); //employee
-            User userEmp = getByUsername("nvorkap"); //employee
-            //User userEmp = getByUsername("lmalsag"); //admin
-            setLoggedUser(userEmp);
+            //User user = getByUsername("nvorkap"); //employee
+            User user = getByUsername("lmalsag"); //admin
+            //User userModifier = getByUsername("nvorkap"); //employee
+            //User userModifier = getByUsername("cjadot"); //member vip
+            User userModifier = getByUsername("lmalsag"); //admin
+            setLoggedUser(userModifier);
             new EditMenuController(user).run();
         }
     }

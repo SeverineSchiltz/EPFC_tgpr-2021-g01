@@ -32,7 +32,10 @@ public class EditMenuController extends Controller{
         List<String> errors;
         try{
             User current = (User)PaintballApp.getLoggedUser();
-            do{
+            //if (!current.isAdmin() && !current.isEmployee() && !current.equals(user)){
+            //  prevent modification
+            //}
+            do {
                 view.displayHeader();
 
                 view.displayUsername(user.getUsername());
@@ -40,13 +43,13 @@ public class EditMenuController extends Controller{
                 String lastName = view.askLastname(user.getLastName());
                 LocalDate birthDate = view.askBirthDate(user.getBirthdate());
                 String email = view.askEmail(user.getEmail());
-                
+
                 boolean admin = user.isAdmin();
                 if (current.isAdmin() && !user.equals(current))
                     admin = view.askAdmin(admin);
                 else
                     view.displayAdmin(user.isAdmin());
-                
+
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
                 user.setBirthdate(birthDate);
@@ -54,7 +57,7 @@ public class EditMenuController extends Controller{
                 errors = user.validate();
                 if (errors.size() > 0)
                     view.showErrors(errors);
-            } while (errors.size() >0);
+            } while (errors.size() > 0);
 
             res = view.askForAction();
             if (res.getAction() == 'O')

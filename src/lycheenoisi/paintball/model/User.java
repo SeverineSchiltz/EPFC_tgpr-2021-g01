@@ -204,7 +204,7 @@ public abstract class User extends Model{
         user.setFirstName(rs.getString("firstname"));
         user.setLastName(rs.getString("lastname"));
         user.setBirthdate(rs.getObject("birthdate", LocalDate.class));
-        user.setEmail(rs.getString("e-mail")); // pas d'adresses mail pour le moment
+        user.setEmail(rs.getString("e-mail"));
         user.setPassword(rs.getString("password"));
         //user.setRole(rs.getObject("role", Role.class));
         String userRole = rs.getString("role");
@@ -316,6 +316,14 @@ public abstract class User extends Model{
         this.id = id;
     }
 
-
-
+    @Override
+    public boolean equals(Object obj) {
+        // si les deux références sont identiques, il s'agit du même objet et ils sont donc égaux
+        if (this == obj) return true;
+        // faux si l'objet obj est nul ou si l'objet courant et l'objet obj n'ont pas le même type (la même classe)
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        // si les objets ont le même pseudo, ils sont égaux
+        return username.equals(user.getUsername());
+    }
 }

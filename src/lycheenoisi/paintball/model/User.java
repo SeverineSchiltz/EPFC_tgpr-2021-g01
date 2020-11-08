@@ -304,7 +304,8 @@ public abstract class User extends Model{
     }
 
     public String toString(){
-        return this.getRole().getNomDB() + ": " + this.getUsername() + "; Nom : " + this.getFirstName() + "; Prenom: " + this.getUsername();
+        return this.getRole().getNomDB() + " : " + this.getFirstName() + " " + this.getLastName() + " - username : "
+                + this.getUsername() ;
     }
 
     public int getId() {

@@ -15,7 +15,11 @@ public class EditMenuView extends View{
 
     public void displayNotAllowed() {
         println("Modification not allowed");
-        // need to wait
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 

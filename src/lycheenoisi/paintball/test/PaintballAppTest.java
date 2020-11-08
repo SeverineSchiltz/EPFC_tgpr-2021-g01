@@ -62,9 +62,11 @@ public class PaintballAppTest {
         if (!Model.checkDb()) {
             new ErrorView("Database is not available").close();
         }else {
-            User user = getByUsername("sschilt"); //member
+            //User user = getByUsername("sschilt"); //member
             //User user = getByUsername("cjadot"); //member vip
+            User user = getByUsername("nvorkap"); //employee
             User userEmp = getByUsername("nvorkap"); //employee
+            //User userEmp = getByUsername("lmalsag"); //admin
             setLoggedUser(userEmp);
             new EditMenuController(user).run();
         }

@@ -1,7 +1,5 @@
 package lycheenoisi.paintball.model;
 
-import static lycheenoisi.paintball.model.Role.*;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +7,11 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Objects;
 import java.util.regex.Pattern;
+
+import static lycheenoisi.paintball.model.Role.*;
+
+//import java.util.Objects;
 
 public abstract class User extends Model{
     private int id;
@@ -203,7 +204,7 @@ public abstract class User extends Model{
         user.setFirstName(rs.getString("firstname"));
         user.setLastName(rs.getString("lastname"));
         user.setBirthdate(rs.getObject("birthdate", LocalDate.class));
-//        user.setEmail(rs.getString("email")); // pas d'adresses mail pour le moment
+        user.setEmail(rs.getString("e-mail")); // pas d'adresses mail pour le moment
         user.setPassword(rs.getString("password"));
         //user.setRole(rs.getObject("role", Role.class));
         String userRole = rs.getString("role");

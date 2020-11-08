@@ -13,13 +13,13 @@ public class EditMenuView extends View{
     }
 
     public String askFirstname(String actual) {
-        return askString("Profile (" + actual + "): ", actual);
+        return askString("First Name (" + actual + "): ", actual);
     }
     public String askLastname(String actual) {
-        return askString("Profile (" + actual + "): ", actual);
+        return askString("Last Name (" + actual + "): ", actual);
     }
     public String askEmail(String actual) {
-        return askString("Profile (" + actual + "): ", actual);
+        return askString("E-mail (" + actual + "): ", actual);
     }
     
     public LocalDate askBirthDate(LocalDate actual) {

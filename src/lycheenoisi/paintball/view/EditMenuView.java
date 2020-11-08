@@ -1,4 +1,5 @@
 package lycheenoisi.paintball.view;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +12,12 @@ public class EditMenuView extends View{
     public void displayUsername(String username) {
         println("Username: " + username);
     }
+
+    public void displayNotAllowed() {
+        println("Modification not allowed");
+        // need to wait
+    }
+
 
     public String askFirstname(String actual) {
         return askString("First Name (" + actual + "): ", actual);
@@ -29,6 +36,10 @@ public class EditMenuView extends View{
 
     public boolean askAdmin(boolean actual) {
         return askBoolean("Is Admin (" + actual + "): ", actual);
+    }
+
+    public boolean askVip(boolean actual) {
+        return askBoolean("Is VIP (" + actual + "): ", actual);
     }
 
     public View.Action askForAction() {

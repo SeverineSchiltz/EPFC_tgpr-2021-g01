@@ -1,8 +1,9 @@
 package lycheenoisi.paintball.model;
 
-public class FightType {
+public class FightType extends Model {
     private String name;
     private String description;
+    private int id;
 
     public FightType(String name, String description) {
         this.name = name;
@@ -23,5 +24,13 @@ public class FightType {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

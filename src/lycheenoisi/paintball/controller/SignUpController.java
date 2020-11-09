@@ -2,11 +2,11 @@ package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
 import lycheenoisi.paintball.model.Member;
+import lycheenoisi.paintball.model.User;
 import lycheenoisi.paintball.view.SignupView;
-import lycheenoisi.paintball.view.StartMenuView;
 import lycheenoisi.paintball.view.View;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class SignUpController {
 
@@ -14,80 +14,94 @@ public class SignUpController {
 
     private String askUsername() {
         String username;
-        Member member;
+        User user;
         do {
             username = view.askUsername();
-            member = Member.getByUsername(username);
-            if (member != null) {
+            user = User.getByUsername(username);
+            if (user != null) {
                 view.error("username already exists, please choose another one");
             }
-        } while (member != null);
+            else if (User.isValidUsername(username) != null) {
+                view.error(User.isValidUsername(username));
+            }
+        } while (user != null || User.isValidUsername(username) != null);
         return username;
     }
 
-    private Date askBirthDate() {
-        String username;
-        Member member;
+    private LocalDate askBirthDate() {
+        LocalDate birthdate;
         do {
-            username = view.askUsername();
-            member = Member.getByUsername(username);
-            if (member != null) {
-                view.error("username already exists, please choose another one");
+            birthdate = view.askBirthdate();
+            if(birthdate == null) {
+                view.error("please enter your birth date");
             }
-        } while (member != null);
-        return new Date();
+            else if (User.isValidBirthdate(birthdate) != null) {
+                view.error(User.isValidBirthdate(birthdate));
+            }
+        } while (birthdate == null || User.isValidBirthdate(birthdate) != null);
+        return birthdate;
     }
 
     private String askEmail() {
         String email;
-        Member member;
+        User user;
         do {
-            email = view.askUsername();
-            member = Member.getByUsername(email);
-            if (member != null) {
-                view.error("username already exists, please choose another one");
+            email = view.askEmail();
+            user = User.getByEmail(email);
+            if(email == null) {
+                view.error("please enter your email");
             }
-        } while (member != null);
+            else if (user != null) {
+                view.error("email already exists, please choose another one");
+            }
+            else if (User.isValidEmail(email) != null) {
+                view.error(User.isValidEmail(email));
+            }
+        } while (email == null || user != null || User.isValidEmail(email) != null);
         return email;
     }
 
     private String askFirstName() {
         String firstname;
-        Member member;
         do {
-            firstname = view.askUsername();
-            member = Member.getByUsername(firstname);
-            if (member != null) {
-                view.error("username already exists, please choose another one");
+            firstname = view.askFirstName();
+            if (firstname == null) {
+                view.error("Please type your first name");
             }
-        } while (member != null);
+        } while (firstname == null);
         return firstname;
     }
 
     private String askLastName() {
         String lastname;
-        Member member;
         do {
-            lastname = view.askUsername();
-            member = Member.getByUsername(lastname);
-            if (member != null) {
-                view.error("username already exists, please choose another one");
+            lastname = view.askLastName();
+            if (lastname == null) {
+                view.error("Please type your last name");
             }
-        } while (member != null);
+        } while (lastname == null);
         return lastname;
     }
 
     private String askPassword() {
-        String username;
-        Member member;
+        String password;
+        String passwordConfirmation;
         do {
-            username = view.askUsername();
-            member = Member.getByUsername(username);
-            if (member != null) {
-                view.error("username already exists, please choose another one");
+            do {
+                password = view.askPassword();
+                if(password == null) {
+                    view.error("Please type a password");
+                }
+                else if (User.isValidPassword(password) != null) {
+                    view.error(User.isValidPassword(password));
+                }
+            } while (password == null || User.isValidPassword(password) != null);
+            passwordConfirmation = view.askPasswordConfirmation();
+            if (!password.equals(passwordConfirmation)) {
+                view.error("the passwords do not match, please retype your password");
             }
-        } while (member != null);
-        return username;
+        } while (!password.equals(passwordConfirmation));
+        return password;
     }
 
     public void run() {
@@ -99,8 +113,8 @@ public class SignUpController {
             var birthdate = askBirthDate();
             var email = askEmail();
             var password = askPassword();
-            Member.addMember(username, firstname, lastname, birthdate, email, password, "member");
-            var member = new Member(username);
+            var member = new Member(username, firstname, lastname, birthdate, email, password);
+            member.save();
             PaintballApp.setLoggedUser(member);
             new MainMenuMemberController().run();
         } catch (View.ActionInterruptedException e) {

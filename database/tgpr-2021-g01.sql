@@ -6,18 +6,15 @@
 -- Généré le : lun. 19 oct. 2020 à 01:57 par Leyla Malsagova
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.2.27
-DROP DATABASE IF EXISTS paintball;
-CREATE DATABASE paintball;
-USE paintball;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-DROP DATABASE IF EXISTS paintball;
-CREATE DATABASE paintball;
-USE paintball;
+DROP DATABASE IF EXISTS `tgpr-2021-g01-paintball`;
+CREATE DATABASE `tgpr-2021-g01-paintball`;
+USE `tgpr-2021-g01-paintball`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -418,12 +415,12 @@ CREATE TABLE `Reservation` (
 --
 
 INSERT INTO `Reservation` (`id`, `date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES
-(1, '2020-10-18 00:00:00', 'Evening', NULL, 1, 1, 3),
-(2, '2020-10-19 00:00:00', 'Morning', NULL, 2, 2, 4),
-(3, '2020-10-20 00:00:00', 'Morning', NULL, 3, 3, 3),
-(4, '2020-10-21 00:00:00', 'Afternoon', NULL, 4, 4, 4),
-(5, '2020-10-22 00:00:00', 'Evening', NULL, 5, 5, 2),
-(6, '2020-10-23 00:00:00', 'Afternoon', 1, 1, 6, 3);
+(1, '2020-12-18 00:00:00', 'Evening', NULL, 1, 1, 3),
+(2, '2020-12-19 00:00:00', 'Morning', NULL, 2, 2, 4),
+(3, '2020-12-20 00:00:00', 'Morning', NULL, 3, 3, 3),
+(4, '2020-12-21 00:00:00', 'Afternoon', NULL, 4, 4, 4),
+(5, '2020-12-22 00:00:00', 'Evening', NULL, 5, 5, 2),
+(6, '2020-12-23 00:00:00', 'Afternoon', 1, 1, 6, 3);
 
 -- --------------------------------------------------------
 

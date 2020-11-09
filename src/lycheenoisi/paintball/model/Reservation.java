@@ -1,18 +1,26 @@
 package lycheenoisi.paintball.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lycheenoisi.paintball.model.Timeslot.*;
+
 public class Reservation extends Model {
+
     private int id;
     private LocalDate date;
     private Timeslot timeslot;
     private boolean isCancelled;
     private Field field;
     private List<EquipmentType> equipmentTypeList = new ArrayList<>();
-
+    private FightType ft;
+    private Member mb;
+    public int getId() {
+        return id;
+    }
 
     public LocalDate getDate() {
         return date;
@@ -36,6 +44,48 @@ public class Reservation extends Model {
 
     public void setCancelled(boolean cancelled) {
         isCancelled = cancelled;
+
+    }
+
+    public static void cancelReservation(int id) {
+        String requestSetIsCancelled = " UPDATE reservation SET is_cancelled = true where id = ?";
+        String requestDeleteReservationEquipmentStock = "DELETE from reservation_equipment_stock WHERE reservation_id = ?";
+        try {
+            var statementUpdate = db.prepareStatement(requestSetIsCancelled);
+            statementUpdate.setInt(1, id);
+            statementUpdate.executeQuery();
+            var statementDelete = db.prepareStatement(requestDeleteReservationEquipmentStock);
+            statementDelete.setInt(1, id);
+            statementDelete.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createReservation(LocalDate date, Timeslot timeslot, int fieldId, int userId, String fightType) {
+        String requestNameFT = " SELECT * FROM fight_type where name = ?";
+        try {
+            var statementNameFT = db.prepareStatement(requestNameFT);
+            statementNameFT.setString(1, fightType);
+            var rs = statementNameFT.executeQuery();
+            int fightTypeId = 0;
+            while (rs.next()) {
+                fightTypeId = rs.getInt("id");
+            }
+
+
+        String requestCreateReservation = " INSERT into RESERVATION (`date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES (?, ?, NULL, ?, ?, ?)";
+
+            var statementCreate = db.prepareStatement(requestCreateReservation);
+            statementCreate.setDate(1, Date.valueOf(date));
+            statementCreate.setString(2, timeslot.getNomDB());
+            statementCreate.setInt(3, fieldId);
+            statementCreate.setInt(4, userId);
+            statementCreate.setInt(5, fightTypeId);
+            statementCreate.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<Reservation> getReservationsNotCancelled(Member m) {
@@ -47,7 +97,7 @@ public class Reservation extends Model {
 //        LEFT JOIN reservation_equipment_stock re ON re.reservation_id = r.id
 //        LEFT JOIN equipment_stock eo ON eo.id = re.equipment_stock_id
 //        LEFT JOIN equipment_type et ON et.id = eo.equipment_type_id
-//        WHERE u.username = 'lmalsag' and r.is_cancelled IS NULL
+//        WHERE u.username = 'lmalsag' and r.is_cancelled IS NULL and r.date > NOW()
 //        ORDER BY r.id
 
         String request = " SELECT r.id, r.date, r.timeslot, f.name 'field_name', f.description 'field_description', f.is_inside, f.level, f.min_players, f.max_players, f.vip, f.price, et.name 'equipment_name', et.rent_price";
@@ -57,7 +107,7 @@ public class Reservation extends Model {
         request += " LEFT JOIN reservation_equipment_stock re ON re.reservation_id = r.id";
         request += " LEFT JOIN equipment_stock eo ON eo.id = re.equipment_stock_id";
         request += " LEFT JOIN equipment_type et ON et.id = eo.equipment_type_id";
-        request += " WHERE u.username = ? and r.is_cancelled IS NULL";
+        request += " WHERE u.username = ? and r.is_cancelled IS NULL and r.date > NOW()";
         request += " ORDER BY r.id";
 
         var list = new ArrayList<Reservation>();
@@ -68,13 +118,20 @@ public class Reservation extends Model {
             //à changer pour avoir les équipements bien reliés à la bonne réservation
             int idPrec = -1;
             var r = new Reservation();
-
+            r.setMb(m);
             while (rs.next()) {
                 if (rs.getInt("id") != idPrec) {
                     r = new Reservation();
                     r.id = rs.getInt("id");
                     r.setDate(rs.getObject("date", LocalDate.class));
-                    //r.setTimeslot(rs.getObject("timeslot", Timeslot.class)); //à voir comment le reprendre
+                    String tmsl = rs.getString("timeslot");
+                    if(tmsl.equals(Morning.getNomDB())){
+                        r.setTimeslot(Morning);
+                    }else if(tmsl.equals(Afternoon.getNomDB())){
+                        r.setTimeslot(Afternoon);
+                    }else if(tmsl.equals(Evening.getNomDB())){
+                        r.setTimeslot(Evening);
+                    }
                     r.setCancelled(false);
                     var f = new Field(rs.getString("field_name"), rs.getString("field_description"), rs.getBoolean("is_inside"), rs.getInt("level"), rs.getInt("max_players"), rs.getInt("min_players"), rs.getBoolean("vip"), rs.getDouble("price"));
                     r.setField(f);
@@ -92,7 +149,16 @@ public class Reservation extends Model {
     }
 
     public String toString(){
-        return "Numéro de reservation : " + this.id + ", nom du terrain : " + this.field.getName();
+        String equipments ="";
+        for(EquipmentType eq : equipmentTypeList){
+            equipments += eq.toString() + ", ";
+        }
+        String dt = this.getDate().getDayOfMonth() + "/" + this.getDate().getMonthValue() + "/" + this.getDate().getYear();
+        return "Reservation Date : " + dt + " " + this.timeslot + "; [" + this.getField() + "]; [" + equipments + "]";
+    }
+
+    public void cancelReservation(){
+
     }
 
     public Field getField() {
@@ -109,5 +175,21 @@ public class Reservation extends Model {
 
     public void setEquipmentList(List<EquipmentType> equipmentTypeList) {
         this.equipmentTypeList = equipmentTypeList;
+    }
+
+    public FightType getFt() {
+        return ft;
+    }
+
+    public void setFt(FightType ft) {
+        this.ft = ft;
+    }
+
+    public Member getMb() {
+        return mb;
+    }
+
+    public void setMb(Member mb) {
+        this.mb = mb;
     }
 }

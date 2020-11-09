@@ -1,9 +1,6 @@
 package lycheenoisi.paintball.test;
 
-import lycheenoisi.paintball.controller.CancelReservationController;
-import lycheenoisi.paintball.controller.DisplayAvailableFieldsController;
-import lycheenoisi.paintball.controller.DisplayReservationsController;
-import lycheenoisi.paintball.controller.MainMenuEmployeeController;
+import lycheenoisi.paintball.controller.*;
 import lycheenoisi.paintball.model.Member;
 import lycheenoisi.paintball.model.Model;
 import lycheenoisi.paintball.model.User;
@@ -57,6 +54,46 @@ public class PaintballAppTest {
             User user = getByUsername("lmalsag");
             setLoggedUser(user);
             new DisplayAvailableFieldsController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_EditProfile(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            //User user = getByUsername("sschilt"); //member
+            //User user = getByUsername("cjadot"); //member vip
+            //User user = getByUsername("nvorkap"); //employee
+            User user = getByUsername("lmalsag"); //admin
+            //User userModifier = getByUsername("nvorkap"); //employee
+            User userModifier = getByUsername("cjadot"); //member vip
+            //User userModifier = getByUsername("lmalsag"); //admin
+            setLoggedUser(userModifier);
+            new EditMenuController(user).run();
+        }
+    }
+
+    @Test
+    public void test_UC_AddMember(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); //admin
+            //User user = getByUsername("nvorkap"); //employee
+            setLoggedUser(user);
+            new AddMemberController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_DisplayMemberController(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayMembersController().run();
         }
     }
 

@@ -1,7 +1,7 @@
 package lycheenoisi.paintball;
 
-import lycheenoisi.paintball.controller.CancelReservationController;
-import lycheenoisi.paintball.controller.LoginController;
+//import lycheenoisi.paintball.controller.CancelReservationController;
+//import lycheenoisi.paintball.controller.LoginController;
 import lycheenoisi.paintball.controller.StartMenuController;
 import lycheenoisi.paintball.model.Model;
 import lycheenoisi.paintball.model.User;
@@ -19,7 +19,6 @@ public class PaintballApp {
     public static User getLoggedUser() {
         return loggedUser;
     }
-
 
     public static boolean isLogged() {
         return loggedUser != null;

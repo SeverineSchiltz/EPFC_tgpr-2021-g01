@@ -1,4 +1,5 @@
 package lycheenoisi.paintball.view;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -12,14 +13,24 @@ public class EditMenuView extends View{
         println("Username: " + username);
     }
 
+    public void displayNotAllowed() {
+        println("Modification not allowed");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public String askFirstname(String actual) {
-        return askString("Profile (" + actual + "): ", actual);
+        return askString("First Name (" + actual + "): ", actual);
     }
     public String askLastname(String actual) {
-        return askString("Profile (" + actual + "): ", actual);
+        return askString("Last Name (" + actual + "): ", actual);
     }
     public String askEmail(String actual) {
-        return askString("Profile (" + actual + "): ", actual);
+        return askString("E-mail (" + actual + "): ", actual);
     }
     
     public LocalDate askBirthDate(LocalDate actual) {
@@ -29,6 +40,10 @@ public class EditMenuView extends View{
 
     public boolean askAdmin(boolean actual) {
         return askBoolean("Is Admin (" + actual + "): ", actual);
+    }
+
+    public boolean askVip(boolean actual) {
+        return askBoolean("Is VIP (" + actual + "): ", actual);
     }
 
     public View.Action askForAction() {

@@ -7,4 +7,8 @@ public class CancelReservationView extends View{
         return Integer.parseInt(answer);
     }
 
+    public void displayHeader(String title) {
+        super.displayHeader(title);
+    }
+
 }

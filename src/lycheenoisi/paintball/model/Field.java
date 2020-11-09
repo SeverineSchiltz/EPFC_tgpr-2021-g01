@@ -135,7 +135,7 @@ public class Field extends Model{
             var stmt = db.prepareStatement(request);
 
             stmt.setDate(1, java.sql.Date.valueOf(date));
-            stmt.setInt(2, timeslot.getId());
+            stmt.setString(2, timeslot.getNomDB());
             stmt.setString(3,fightType);
 
             var rs = stmt.executeQuery();

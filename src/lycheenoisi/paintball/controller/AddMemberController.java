@@ -1,22 +1,21 @@
 package lycheenoisi.paintball.controller;
 
-import lycheenoisi.paintball.model.Employee;
 import lycheenoisi.paintball.model.Role;
 import lycheenoisi.paintball.model.User;
-import lycheenoisi.paintball.view.AddEmployeeView;
+import lycheenoisi.paintball.model.Member;
+import lycheenoisi.paintball.view.AddMemberView;
 import lycheenoisi.paintball.view.View;
 
 import java.time.LocalDate;
-//import java.util.ArrayList;
 import java.util.List;
 
-public class AddEmployeeController extends Controller{
-    private final AddEmployeeView view = new AddEmployeeView();
+public class AddMemberController {
+    private final AddMemberView view = new AddMemberView();
 
     public void run() {
         View.Action res;
         List<String> errors;
-        Employee newEmployee = new Employee();
+        Member newMember = new Member();
         try {
             do {
                 view.displayHeader();
@@ -26,22 +25,22 @@ public class AddEmployeeController extends Controller{
                 String name = view.askName();
                 String email = view.askEmail();
                 String psw = view.askPsw();
-                boolean admin = view.askAdmin();
+                boolean vip = view.askVip();
                 LocalDate birthDate = askBirthDate();
 
                 // validations métier
-                newEmployee.setUsername(username);
-                newEmployee.setFirstName(firstname);
-                newEmployee.setLastName(name);
-                newEmployee.setEmail(email);
-                newEmployee.setPassword(psw);
-                if(admin){
-                    newEmployee.setRole(Role.admin);
+                newMember.setUsername(username);
+                newMember.setFirstName(firstname);
+                newMember.setLastName(name);
+                newMember.setEmail(email);
+                newMember.setPassword(psw);
+                if(vip){
+                    newMember.setRole(Role.membervip);
                 }else{
-                    newEmployee.setRole(Role.employee);
+                    newMember.setRole(Role.member);
                 }
-                newEmployee.setBirthdate(birthDate);
-                errors = newEmployee.validate();
+                newMember.setBirthdate(birthDate);
+                errors = newMember.validate();
                 // affichage des erreurs
                 if (errors.size() > 0)
                     view.showErrors(errors);
@@ -50,7 +49,7 @@ public class AddEmployeeController extends Controller{
 
             res = view.askForAction();
             if (res.getAction() == 'O') {
-                newEmployee.save();   // sauvegarde des nouvelles données
+                newMember.save();   // sauvegarde des nouvelles données
             }
         } catch (View.ActionInterruptedException e) {
             view.pausedWarning("add profile aborted");

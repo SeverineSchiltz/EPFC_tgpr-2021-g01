@@ -1,6 +1,7 @@
 package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
+import lycheenoisi.paintball.view.BookFieldAndEquipmentView;
 import lycheenoisi.paintball.view.MainMenuEmployeeView;
 import lycheenoisi.paintball.view.View;
 import static lycheenoisi.paintball.model.Role.*;
@@ -23,7 +24,7 @@ public class MainMenuEmployeeController extends Controller {
 
                 switch (res.getAction()) {
                     case 'M':
-                        //new DisplayMembers().run();
+                        new DisplayMembersController().run();
                         break;
                     case 'R':
                         //new DisplayFuturReservations().run();

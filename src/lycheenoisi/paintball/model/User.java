@@ -1,7 +1,5 @@
 package lycheenoisi.paintball.model;
 
-import static lycheenoisi.paintball.model.Role.*;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +7,11 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
+
+import static lycheenoisi.paintball.model.Role.*;
+
+//import java.util.Objects;
 
 public abstract class User extends Model{
     private int id;
@@ -203,7 +204,7 @@ public abstract class User extends Model{
         user.setFirstName(rs.getString("firstname"));
         user.setLastName(rs.getString("lastname"));
         user.setBirthdate(rs.getObject("birthdate", LocalDate.class));
-//        user.setEmail(rs.getString("email")); // pas d'adresses mail pour le moment
+        user.setEmail(rs.getString("e-mail"));
         user.setPassword(rs.getString("password"));
         //user.setRole(rs.getObject("role", Role.class));
         String userRole = rs.getString("role");
@@ -304,7 +305,8 @@ public abstract class User extends Model{
     }
 
     public String toString(){
-        return this.getRole().getNomDB() + ": " + this.getUsername() + "; Nom : " + this.getFirstName() + "; Prenom: " + this.getUsername();
+        return this.getRole().getNomDB() + " : " + this.getFirstName() + " " + this.getLastName() + " - username : "
+                + this.getUsername() ;
     }
 
     public int getId() {
@@ -315,6 +317,14 @@ public abstract class User extends Model{
         this.id = id;
     }
 
-
-
+    @Override
+    public boolean equals(Object obj) {
+        // si les deux références sont identiques, il s'agit du même objet et ils sont donc égaux
+        if (this == obj) return true;
+        // faux si l'objet obj est nul ou si l'objet courant et l'objet obj n'ont pas le même type (la même classe)
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        // si les objets ont le même pseudo, ils sont égaux
+        return username.equals(user.getUsername());
+    }
 }

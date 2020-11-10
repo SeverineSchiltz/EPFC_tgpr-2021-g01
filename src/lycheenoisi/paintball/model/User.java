@@ -109,7 +109,7 @@ public abstract class User extends Model{
 
     public static String isValidBirthdate(LocalDate birthdate) {
         if (birthdate == null)
-            return null;
+            return "invalid birthdate";
         if (birthdate.compareTo(LocalDate.now()) > 0)
             return "may not be born in the future";
         if (Period.between(birthdate, LocalDate.now()).getYears() < 18)
@@ -119,7 +119,7 @@ public abstract class User extends Model{
 
     public static String isValidUsername(String username) {
         if (username == null || !Pattern.matches("[a-zA-Z0-9]{3,}", username))
-            return "invalid pseudo";
+            return "invalid username, must be at least 3 characters long with no special character";
         return null;
     }
 
@@ -127,7 +127,7 @@ public abstract class User extends Model{
 //        if (password == null || !Pattern.matches("[a-zA-Z0-9]{3,}", password))
 //            return "invalid password";
         if (!isMin3Char(password))
-            return "password must have 3 characters minimum";
+            return "password must have 3 characters minimum with no special character";
         return null;
     }
 
@@ -226,6 +226,27 @@ public abstract class User extends Model{
             String query = "select * from User where username=?";
             var stmt = db.prepareStatement(query);
             stmt.setString(1, username);
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                if(rs.getString("role").equals(member.getNomDB()) ||
+                        rs.getString("role").equals(membervip.getNomDB()))
+                    user = new Member();
+                else if(rs.getString("role").equals(admin.getNomDB()) ||
+                        rs.getString("role").equals(employee.getNomDB()))
+                    user = new Employee();
+                mapper(rs, user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    public static User getByEmail(String email) {
+        User user = null;
+        try {
+            String query = "select * from User where 'e-mail'=?";
+            var stmt = db.prepareStatement(query);
+            stmt.setString(1, email);
             var rs = stmt.executeQuery();
             if (rs.next()) {
                 if(rs.getString("role").equals(member.getNomDB()) ||

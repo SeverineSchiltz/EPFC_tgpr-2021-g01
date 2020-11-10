@@ -16,10 +16,12 @@ public class DisplayAllFieldsController extends Controller {
                 var fields = Field.getAllFields();
                 view.displayAllFields(fields);
                 res = view.askForAction(fields.size());
-                if (!fields.isEmpty() ) {
-                    res = view.askForAction(fields.size());
+                switch (res.getAction()) {
+                    case 'F':
+                        new DisplayAvailableFieldsController().run();
+                        break;
                 }
-            } while (res.getAction() != 'L');
+            } while (res.getAction() != 'M');
         } catch (View.ActionInterruptedException e) {
         }
 

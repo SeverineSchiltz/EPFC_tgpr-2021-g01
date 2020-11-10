@@ -26,10 +26,14 @@ public class DisplayAvailableFieldsController extends Controller {
                 var fields = Field.getAvailableFields(date, timeslot ,fightType);
                 view.displayAvailableFields(fields);
                 res = view.askForAction(fields.size());
-                if (!fields.isEmpty() ) {
-                    res = view.askForAction(fields.size());
+                switch (res.getAction()) {
+                    case 'B':
+                        new BookFieldAndEquipmentController().run();
+                        break;
+                    case 'M' :
+                        new MainMenuEmployeeController().run();
                 }
-            } while (res.getAction() != 'L');
+            } while (res.getAction() != 'M');
         } catch (View.ActionInterruptedException e) {
         }
 

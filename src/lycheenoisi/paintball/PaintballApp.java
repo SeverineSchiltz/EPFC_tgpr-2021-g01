@@ -1,5 +1,4 @@
 package lycheenoisi.paintball;
-
 //import lycheenoisi.paintball.controller.CancelReservationController;
 //import lycheenoisi.paintball.controller.LoginController;
 import lycheenoisi.paintball.controller.StartMenuController;
@@ -24,9 +23,12 @@ public class PaintballApp {
         return loggedUser != null;
     }
 
-
     public static void logout() {
         setLoggedUser(null);
+    }
+
+    public static boolean isAdmin() {
+        return loggedUser != null && loggedUser.isAdmin();
     }
 
     public static void main(String[] args) {
@@ -35,12 +37,4 @@ public class PaintballApp {
         else
             new StartMenuController().run();
     }
-
-
-//    //public static void main(String[] args) {
-
-//        System.out.println("Ca compile! :-)");
-
-//    }
-
 }

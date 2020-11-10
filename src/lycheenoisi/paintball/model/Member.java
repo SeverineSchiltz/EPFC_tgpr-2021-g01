@@ -1,19 +1,21 @@
 package lycheenoisi.paintball.model;
-
+import java.sql.Date;
+import java.time.LocalDate;
 import java.sql.SQLException;
-//import java.time.LocalDate;
-//import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.regex.Pattern;
 
 public class Member extends User {
+
+    public Member(String username, String firstname, String lastname, LocalDate birthdate, String email, String password) {
+        super(username, firstname, lastname, birthdate, email, password, Role.member);
+    }
+
     public Member(String username) {
         super(username);
     }
 
-    public Member() {
-    }
+    public Member() {}
 
     // List of all members (VIP included)
     // Query ok
@@ -43,6 +45,7 @@ public class Member extends User {
 //            return "invalid password";
 //        return null;
 //    }
-
-
+    public String getPassword() {
+        return "";
+    }
 }

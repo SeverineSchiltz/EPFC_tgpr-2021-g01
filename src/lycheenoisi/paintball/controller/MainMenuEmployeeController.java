@@ -1,10 +1,10 @@
 package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
-import lycheenoisi.paintball.view.BookFieldAndEquipmentView;
-import lycheenoisi.paintball.view.MainMenuEmployeeView;
 import lycheenoisi.paintball.view.View;
-import static lycheenoisi.paintball.model.Role.*;
+import lycheenoisi.paintball.view.MainMenuEmployeeView;
+
+import static lycheenoisi.paintball.model.Role.admin;
 
 public class MainMenuEmployeeController extends Controller {
 
@@ -31,6 +31,9 @@ public class MainMenuEmployeeController extends Controller {
                         break;
                     case 'E':
                         new DisplayEmployeesController().run();
+                        break;
+                    case 'A':
+                        new DisplayAllFieldsController().run();
                         break;
                 }
             } while (res.getAction() != 'L');

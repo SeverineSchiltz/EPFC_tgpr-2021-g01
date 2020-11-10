@@ -17,7 +17,11 @@ public class DisplayAvailableFieldsController extends Controller {
             do {
                 view.displayHeader();
                 LocalDate date = view.askDate();
-                var timeslot = Timeslot.valueOf(view.askTimeslot());
+                var inputTimeslot = view.askTimeslot();
+                Timeslot timeslot=null;
+                if(inputTimeslot!=null){
+                    timeslot=Timeslot.valueOf(inputTimeslot);
+                }
                 String fightType = view.askFightType();
                 var fields = Field.getAvailableFields(date, timeslot ,fightType);
                 view.displayAvailableFields(fields);

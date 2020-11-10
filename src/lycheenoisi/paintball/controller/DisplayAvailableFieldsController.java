@@ -18,6 +18,7 @@ public class DisplayAvailableFieldsController extends Controller {
                 view.displayHeader();
                 LocalDate date = view.askDate();
                 var inputTimeslot = view.askTimeslot();
+                inputTimeslot=inputTimeslot.substring(0,1).toUpperCase()+inputTimeslot.substring(1).toLowerCase();
                 Timeslot timeslot=null;
                 if(inputTimeslot!=null){
                     timeslot=Timeslot.valueOf(inputTimeslot);
@@ -30,10 +31,8 @@ public class DisplayAvailableFieldsController extends Controller {
                     case 'B':
                         new BookFieldAndEquipmentController().run();
                         break;
-                    case 'M' :
-                        new MainMenuEmployeeController().run();
                 }
-            } while (res.getAction() != 'M');
+            } while (res.getAction() != 'L');
         } catch (View.ActionInterruptedException e) {
         }
 

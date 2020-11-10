@@ -239,6 +239,7 @@ public abstract class User extends Model{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("password: " + user.getPassword());
         return user;
     }
     public static User getByEmail(String email) {

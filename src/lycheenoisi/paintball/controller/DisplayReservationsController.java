@@ -24,7 +24,7 @@ public class DisplayReservationsController extends Controller {
                 }else{
                     res = view.askForActionNotCancel(reservations.size());
                 }
-                switch (res.getAction()) {
+                switch (res.getAction()){
                     case 'C':
                         new CancelReservationController().run();
                         break;

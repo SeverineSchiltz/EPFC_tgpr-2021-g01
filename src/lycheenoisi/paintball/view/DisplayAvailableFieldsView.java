@@ -20,7 +20,7 @@ public class DisplayAvailableFieldsView extends View {
                 ++i;
             }
         } else {
-            println("Aucun terrain n'est disponible");
+            println("No field available");
         }
     }
 

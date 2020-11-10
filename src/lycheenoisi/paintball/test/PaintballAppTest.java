@@ -58,6 +58,17 @@ public class PaintballAppTest {
     }
 
     @Test
+    public void test_UC_DisplayAllFieldsController(){     /* LEYLA TEST */
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag");
+            setLoggedUser(user);
+            new DisplayAllFieldsController().run();
+        }
+    }
+
+    @Test
     public void test_UC_EditProfile(){
         if (!Model.checkDb()) {
             new ErrorView("Database is not available").close();

@@ -17,15 +17,23 @@ public class DisplayAvailableFieldsController extends Controller {
             do {
                 view.displayHeader();
                 LocalDate date = view.askDate();
-                var timeslot = Timeslot.valueOf(view.askTimeslot());
+                var inputTimeslot = view.askTimeslot();
+                Timeslot timeslot=null;
+                if(inputTimeslot!=null){
+                    timeslot=Timeslot.valueOf(inputTimeslot);
+                }
                 String fightType = view.askFightType();
                 var fields = Field.getAvailableFields(date, timeslot ,fightType);
                 view.displayAvailableFields(fields);
                 res = view.askForAction(fields.size());
-                if (!fields.isEmpty() ) {
-                    res = view.askForAction(fields.size());
+                switch (res.getAction()) {
+                    case 'B':
+                        new BookFieldAndEquipmentController().run();
+                        break;
+                    case 'M' :
+                        new MainMenuEmployeeController().run();
                 }
-            } while (res.getAction() != 'L');
+            } while (res.getAction() != 'M');
         } catch (View.ActionInterruptedException e) {
         }
 

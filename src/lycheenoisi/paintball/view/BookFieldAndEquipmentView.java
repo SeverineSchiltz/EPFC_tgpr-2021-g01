@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class BookFieldAndEquipmentView extends View {
 
-    public void displayHeader() { displayHeader("** Available fields **"); }
+    public void displayHeader() { displayHeader("** Book a field **"); }
     public LocalDate askDate() { return askDate("Date (dd/mm/yyyy) : ", null); }
     public String askFightType() {return askString("Fight type : ",null);}
-    public int askTimeslot() { return askInt("Timeslot (1. Matin , 2. Aprem , 3. Soir.)  : ");}
+    public int askTimeslot() { return askInt("Timeslot (1:Morning 2:Afternoon 3:Evening)  : ");}
 
     public void displayAvailableFields(ArrayList<Field> fields) {
         if (!fields.isEmpty() ) {
@@ -20,7 +20,7 @@ public class BookFieldAndEquipmentView extends View {
                 ++i;
             }
         } else {
-            println("Aucun terrain n'est disponible");
+            println("No field available");
         }
     }
 

@@ -108,5 +108,19 @@ public class PaintballAppTest {
         }
     }
 
+    @Test
+    public void test_UC_DisplayAllFields(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("sschilt"); //member
+            //User user = getByUsername("cjadot"); //member vip
+            //User user = getByUsername("nvorkap"); //employee
+            //User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayAllFieldsController().run();
+        }
+    }
+
 
 }

@@ -13,7 +13,7 @@ public class LoginView extends View {
     }
 
     public String askPassword() {
-        return askString("Password: ", null, true);
+        return askString("Password: ", null, false);
     }
 
 }

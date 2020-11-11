@@ -129,7 +129,7 @@ public abstract class User extends Model{
     public static String isValidPassword(String password) {
 //        if (password == null || !Pattern.matches("[a-zA-Z0-9]{3,}", password))
 //            return "invalid password";
-        if (!isMin3Char(password))
+        if (password == null || !Pattern.matches("[a-zA-Z0-9]{3,}", password) )
             return "password must have 3 characters minimum with no special character";
         return null;
     }
@@ -162,13 +162,13 @@ public abstract class User extends Model{
     }
 
     public static String isValidFirstname(String n) {
-        if (n == null || !Pattern.matches("[a-zA-Z0-9]", n))
+        if (n == null || !Pattern.matches("[a-zA-Z0-9]{1,}", n))
             return "invalid firstname";
         return null;
     }
 
     public static String isValidLastname(String n) {
-        if (n == null || !Pattern.matches("[a-zA-Z0-9]", n))
+        if (n == null || !Pattern.matches("[a-zA-Z0-9]{1,}", n))
             return "invalid lastname";
         return null;
     }

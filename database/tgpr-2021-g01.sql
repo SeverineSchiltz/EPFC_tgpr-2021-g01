@@ -595,36 +595,36 @@ ALTER TABLE `User`
 -- Contraintes pour la table `Equipment_Stock`
 --
 ALTER TABLE `Equipment_Stock`
-  ADD CONSTRAINT `equipment_stock_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `Equipment_Type` (`id`);
+  ADD CONSTRAINT `equipment_stock_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `Equipment_Type` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Equipment_Type_Fight_Type`
 --
 ALTER TABLE `Equipment_Type_Fight_Type`
-  ADD CONSTRAINT `equipment_type_fight_type_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `Equipment_Type` (`id`),
-  ADD CONSTRAINT `equipment_type_fight_type_ibfk_2` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`);
+  ADD CONSTRAINT `equipment_type_fight_type_ibfk_1` FOREIGN KEY (`equipment_type_id`) REFERENCES `Equipment_Type` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `equipment_type_fight_type_ibfk_2` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Fight_Type_Field`
 --
 ALTER TABLE `Fight_Type_Field`
-  ADD CONSTRAINT `fight_type_field_ibfk_1` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`),
-  ADD CONSTRAINT `fight_type_field_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `Field` (`id`);
+  ADD CONSTRAINT `fight_type_field_ibfk_1` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fight_type_field_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `Field` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Reservation`
 --
 ALTER TABLE `Reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `Field` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_4` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`);
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `Field` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_4` FOREIGN KEY (`fight_type_id`) REFERENCES `Fight_Type` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Reservation_Equipment_Stock`
 --
 ALTER TABLE `Reservation_Equipment_Stock`
-  ADD CONSTRAINT `reservation_equipment_stock_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `Reservation` (`id`),
-  ADD CONSTRAINT `reservation_equipment_stock_ibfk_2` FOREIGN KEY (`equipment_stock_id`) REFERENCES `Equipment_Stock` (`id`);
+  ADD CONSTRAINT `reservation_equipment_stock_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `Reservation` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reservation_equipment_stock_ibfk_2` FOREIGN KEY (`equipment_stock_id`) REFERENCES `Equipment_Stock` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

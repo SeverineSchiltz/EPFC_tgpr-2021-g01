@@ -120,6 +120,9 @@ public abstract class User extends Model{
     public static String isValidUsername(String username) {
         if (username == null || !Pattern.matches("[a-zA-Z0-9]{3,}", username))
             return "invalid username, must be at least 3 characters long with no special character";
+        else if (getByUsername(username) != null) {
+            return "username already exists, please choose another one";
+        }
         return null;
     }
 
@@ -146,7 +149,8 @@ public abstract class User extends Model{
 //        if (email == null || !Pattern.matches("[a-zA-Z0-9\\.]*@[a-zA-Z0-9]*\\.[a-zA-Z0-9]*", email))
 //            //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
 //            return "invalid email";
-
+        else if (getByEmail(email) != null)
+            return "email already exists, please choose another one";
         return null;
     }
 

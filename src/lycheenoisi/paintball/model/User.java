@@ -157,11 +157,27 @@ public abstract class User extends Model{
         return null;
     }
 
+    public static String isValidFirstname(String n) {
+        if (n == null || !Pattern.matches("[a-zA-Z0-9]", n))
+            return "invalid firstname";
+        return null;
+    }
+
+    public static String isValidLastname(String n) {
+        if (n == null || !Pattern.matches("[a-zA-Z0-9]", n))
+            return "invalid lastname";
+        return null;
+    }
+
     public List<String> validate() {
         var errors = new ArrayList<String>();
 
         // field validations
         var err = isValidUsername(username);
+        if (err != null) errors.add(err);
+        err = isValidFirstname(firstName);
+        if (err != null) errors.add(err);
+        err = isValidLastname(lastName);
         if (err != null) errors.add(err);
         err = isValidPassword(password);
         if (err != null) errors.add(err);

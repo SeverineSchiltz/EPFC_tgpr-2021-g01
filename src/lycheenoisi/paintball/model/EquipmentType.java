@@ -1,5 +1,8 @@
 package lycheenoisi.paintball.model;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class EquipmentType extends Model{
     private String name;
     private double rent_price;
@@ -34,4 +37,24 @@ public class EquipmentType extends Model{
     public String toString(){
         return "Reserved equipment: " + this.getName();
     }
+
+    public static ArrayList<EquipmentType> getAllEquipments(){
+        String request=null;
+        request = "SELECT et.name 'name', et.rent_price 'rent_price' from  Equipment_Type et";
+        var equipments = new ArrayList<EquipmentType>();
+        try {
+            var stmt = db.prepareStatement(request);
+            var rs = stmt.executeQuery();
+            while (rs.next()) {
+                var et = new EquipmentType();
+                et.setName(rs.getString("name"));
+                et.setRent_price(rs.getInt("rent_price"));
+                equipments.add(et);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return equipments;
+    }
+
 }

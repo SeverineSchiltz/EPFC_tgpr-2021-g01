@@ -167,4 +167,15 @@ public class PaintballAppTest {
         }
     }
 
+    @Test
+    public void test_UC_DisplayAllEquipmentsController(){       /* LEYLA */
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayAllEquipmentsController().run();
+        }
+    }
+
 }

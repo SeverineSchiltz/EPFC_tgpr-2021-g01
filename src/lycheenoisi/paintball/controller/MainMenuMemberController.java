@@ -37,6 +37,9 @@ public class MainMenuMemberController extends Controller {
                     case 'F':
                         new DisplayAllFieldsController().run();
                         break;
+                    case 'Q':
+                        new DisplayAllEquipmentsController().run();
+                        break;
                 }
             } while (res.getAction() != 'L');
         } catch (View.ActionInterruptedException e) {

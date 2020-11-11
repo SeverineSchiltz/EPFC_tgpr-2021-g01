@@ -17,8 +17,12 @@ public class DisplayAvailableFieldsController extends Controller {
             do {
                 view.displayHeader();
                 LocalDate date = view.askDate();
-                var inputTimeslot = view.askTimeslot();
-                inputTimeslot=inputTimeslot.substring(0,1).toUpperCase()+inputTimeslot.substring(1).toLowerCase();
+                String inputTimeslot=null;
+                do {
+                    inputTimeslot = view.askTimeslot();
+                    inputTimeslot = inputTimeslot.substring(0, 1).toUpperCase() + inputTimeslot.substring(1, inputTimeslot.length()).toLowerCase();
+
+                }while(!inputTimeslot.equals("Morning") && !inputTimeslot.equals("Evening") && !inputTimeslot.equals("Afternoon"));
                 Timeslot timeslot=null;
                 if(inputTimeslot!=null){
                     timeslot=Timeslot.valueOf(inputTimeslot);

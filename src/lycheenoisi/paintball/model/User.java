@@ -174,12 +174,27 @@ public abstract class User extends Model{
     }
 
     public List<String> validate() {
+        //var errors = new ArrayList<String>();
+
+        // field validations
+        var errors = validateWithoutUsername();
+        var err = isValidUsername(username);
+        if (err != null) errors.add(err);
+
+
+        // cross-fields validations
+        /*if (profile != null && profile.equals(pseudo))
+            errors.add("profile and pseudo must be different");
+        gardé comme exemple*/
+        return errors;
+    }
+
+    public List<String> validateWithoutUsername() {
         var errors = new ArrayList<String>();
 
         // field validations
-        var err = isValidUsername(username);
-        if (err != null) errors.add(err);
-        err = isValidFirstname(firstName);
+
+        var err = isValidFirstname(firstName);
         if (err != null) errors.add(err);
         err = isValidLastname(lastName);
         if (err != null) errors.add(err);

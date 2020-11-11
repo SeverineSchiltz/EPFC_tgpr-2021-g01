@@ -3,7 +3,6 @@ package lycheenoisi.paintball.test;
 import lycheenoisi.paintball.controller.*;
 import lycheenoisi.paintball.model.Member;
 import lycheenoisi.paintball.model.Model;
-import lycheenoisi.paintball.model.Reservation;
 import lycheenoisi.paintball.model.User;
 import lycheenoisi.paintball.view.ErrorView;
 import org.junit.Test;
@@ -124,6 +123,29 @@ public class PaintballAppTest {
     }
 
     @Test
+    public void test_UC_SignUp(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        } else {
+            new SignUpController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_MainMenuMember(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        } else {
+            User user = getByUsername("ssoupar"); //member
+            //User user = getByUsername("cjadot"); //member vip
+            //User user = getByUsername("nvorkap"); //employee
+            //User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new MainMenuMemberController().run();
+        }
+    }
+
+    @Test
     public void test_UC_DisplayFutureReservationsController(){
         if (!Model.checkDb()) {
             new ErrorView("Database is not available").close();
@@ -131,6 +153,17 @@ public class PaintballAppTest {
             User user = getByUsername("lmalsag"); // admin
             setLoggedUser(user);
             new DisplayFutureReservationsController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_DisplayAllFightTypesController(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayAllFightTypesController().run();
         }
     }
 

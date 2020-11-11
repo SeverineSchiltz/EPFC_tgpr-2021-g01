@@ -38,6 +38,9 @@ public class MainMenuEmployeeController extends Controller {
                     case 'A':
                         new DisplayAllFieldsController().run();
                         break;
+                    case 'F':
+                        new DisplayAllFightTypesController().run();
+                        break;
                 }
             } while (res.getAction() != 'L');
         } catch (View.ActionInterruptedException e) {

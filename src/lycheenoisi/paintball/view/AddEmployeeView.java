@@ -1,5 +1,7 @@
 package lycheenoisi.paintball.view;
 
+import lycheenoisi.paintball.model.User;
+
 import java.time.LocalDate;
 
 public class AddEmployeeView extends View{
@@ -24,7 +26,7 @@ public class AddEmployeeView extends View{
     }
 
     public String askPsw() {
-        return askString("Password : ", "Password", true);
+        return askString("Password : ", null, true);
     }
 
     public LocalDate askBirthDate() {
@@ -32,7 +34,7 @@ public class AddEmployeeView extends View{
     }
 
     public boolean askAdmin() {
-        return askBoolean("Is Admin : ", false);
+        return askBoolean("Is Admin (true or false) : ", false);
     }
 
     public View.Action askForAction() {

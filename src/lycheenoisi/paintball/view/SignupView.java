@@ -32,7 +32,7 @@ public class SignupView extends View {
     }
 
     public LocalDate askBirthdate() {
-        return askDate("Birth date: ", null);
+        return askDate("Birth date (dd/mm/yyyy): ", null);
     }
 
     public String askEmail() {

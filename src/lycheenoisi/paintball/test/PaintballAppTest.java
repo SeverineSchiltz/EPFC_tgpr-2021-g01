@@ -3,10 +3,8 @@ package lycheenoisi.paintball.test;
 import lycheenoisi.paintball.controller.*;
 import lycheenoisi.paintball.model.Member;
 import lycheenoisi.paintball.model.Model;
-import lycheenoisi.paintball.model.Reservation;
 import lycheenoisi.paintball.model.User;
 import lycheenoisi.paintball.view.ErrorView;
-import lycheenoisi.paintball.view.SignupView;
 import org.junit.Test;
 
 import static lycheenoisi.paintball.PaintballApp.setLoggedUser;

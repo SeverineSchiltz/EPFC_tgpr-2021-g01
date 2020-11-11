@@ -28,12 +28,16 @@ public class CancelReservationController extends Controller{
             ++i;
         }
         view.println("Please select a reservation to cancel or enter 0 to leave: ");
-        int cancelNumber = view.askCancelReservationNumber();
+        int cancelNumber = view.askInt("");
         if (cancelNumber == 0)
             return;
-        while (cancelNumber > res.size()) {
+        while (cancelNumber > res.size() || cancelNumber < 0) {
             view.println("This reservation number doesn't exist! ");
-            cancelNumber = view.askCancelReservationNumber();
+            cancelNumber = view.askInt("");
+            if (cancelNumber == 0) {
+                view.println("Cancell aborted.");
+                return;
+            }
         }
         Reservation toCancel = res.get(cancelNumber - 1);
         Reservation.cancelReservation(toCancel.getId());
@@ -57,12 +61,16 @@ public class CancelReservationController extends Controller{
             ++i;
         }
         view.println("Please select a reservation to cancel or enter 0 to leave: ");
-        int cancelNumber = view.askCancelReservationNumber();
+        int cancelNumber = view.askInt("");
         if (cancelNumber == 0)
             return;
-        while (cancelNumber > res.size()) {
+        while (cancelNumber > res.size() || cancelNumber < 0) {
             view.println("This reservation number doesn't exist! ");
-            cancelNumber = view.askCancelReservationNumber();
+            cancelNumber = view.askInt("");
+            if (cancelNumber == 0) {
+                view.println("Cancell aborted.");
+                return;
+            }
         }
         Reservation toCancel = res.get(cancelNumber - 1);
         Reservation.cancelReservation(toCancel.getId());

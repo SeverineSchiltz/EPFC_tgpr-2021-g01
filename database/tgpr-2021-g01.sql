@@ -460,7 +460,8 @@ CREATE TABLE `User` (
   `birthdate` date DEFAULT NULL,
   `e-mail` varchar(64) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('admin','employe','member','member vip') NOT NULL
+  `role` enum('admin','employe','member','member vip') NOT NULL,
+  `locked` boolean NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

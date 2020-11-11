@@ -22,16 +22,16 @@ public class DisplayMembersController extends Controller {
                     res = view.askForAction(members.size());
                     switch (res.getAction()) {
                         case 'E': // to edit a member's profile
-                            Member member = members.get(res.getNumber() - 1);
-                            new EditMenuController(member).run();
+                            Member memberEdit = members.get(res.getNumber() - 1);
+                            new EditMenuController(memberEdit).run();
                             break;
                         case 'A': // to add a member
                             new AddMemberController().run();
                             break;
                         case 'D': // to delete a member
                             // !!! to check !
-                            Member m = members.get(res.getNumber() - 1);
-                            m.delete();
+                            Member memberDelete = members.get(res.getNumber() - 1);
+                            memberDelete.delete();
                             break;
                         case 'B':
                             // !!! not the right UC at this stage !

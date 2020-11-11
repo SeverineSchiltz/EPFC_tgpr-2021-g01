@@ -1,6 +1,7 @@
 package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
+import lycheenoisi.paintball.model.Employee;
 import lycheenoisi.paintball.model.Reservation;
 import lycheenoisi.paintball.view.View;
 import lycheenoisi.paintball.view.DisplayFutureReservationsView;
@@ -23,7 +24,8 @@ public class DisplayFutureReservationsController extends Controller {
                     switch (res.getAction()) {
                         case 'C': // to cancel a reservation
                             // !!! Won't work because "cancel reservation" is based on a member's reservations !
-                            new CancelReservationController();
+                            Reservation r = reservations.get(res.getNumber() - 1);
+                            new CancelReservationController().run(r.getMb());
                             break;
                     }
                 } while (res.getAction() != 'L'); // to leave (not consistent with "L" for login)

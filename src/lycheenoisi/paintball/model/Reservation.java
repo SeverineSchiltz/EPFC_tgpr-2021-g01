@@ -148,13 +148,86 @@ public class Reservation extends Model {
         return list;
     }
 
+    public static List<Reservation> getAllFutureReservations() {
+
+        var list = new ArrayList<Reservation>();
+
+        String query = "SELECT r.id 'Booking_ID', u.username 'Member_username', r.date 'Booking_date', ";
+        query += "r.timeslot 'Booking_timeslot', f.name 'Field_name', ft.name 'Fight_type_name', ";
+        query += "et.name 'Equipment_type_name' ";
+        query += "FROM reservation r ";
+        query += "JOIN user u ON r.user_id = u.id ";
+        query += "JOIN field f ON r.field_id = f.id ";
+        query += "JOIN fight_type ft ON r.fight_type_id = ft.id ";
+        query += "JOIN reservation_equipment_stock res ON r.id = res.reservation_id ";
+        query += "JOIN equipment_stock es ON res.equipment_stock_id = es.id ";
+        query += "JOIN equipment_type et ON es.equipment_type_id = et.id ";
+        query += "WHERE r.is_cancelled IS NULL AND r.date >= NOW() ";
+        //query += " AND (u.role = 'member' OR u.role = 'member vip') ";
+        query += "ORDER BY r.id";
+
+        try {
+            var stmt = db.prepareStatement(query);
+            var rs = stmt.executeQuery();
+            int idPrec = 0;
+            var reservation = new Reservation();
+            while (rs.next()) {
+                if (rs.getInt("id") != idPrec) {
+                    reservation = new Reservation();
+                    reservation.id = rs.getInt("Booking_ID");
+                    reservation.setDate(rs.getObject("Booking_date", LocalDate.class));
+                    String tmsl = rs.getString("Booking_timeslot");
+                    if (tmsl.equals(Morning.getNomDB())) {
+                        reservation.setTimeslot(Morning);
+                    } else if (tmsl.equals(Afternoon.getNomDB())) {
+                        reservation.setTimeslot(Afternoon);
+                    } else if (tmsl.equals(Evening.getNomDB())) {
+                        reservation.setTimeslot(Evening);
+                    }
+                    reservation.setCancelled(false);
+
+                    var member = new Member(rs.getString("Member_username"));
+                    reservation.setMb(member);
+
+                    var field = new Field(rs.getString("Field_name"));
+                    reservation.setField(field);
+
+                    var fightType = new FightType(rs.getString("Fight_type_name"));
+                    reservation.setFt(fightType);
+
+                    var equipmentType = new EquipmentType(rs.getString("Equipment_type_name"));
+                    reservation.getEquipmentList().add(equipmentType);
+
+                    list.add(reservation);
+
+                } else {
+                    var equipmentType = new EquipmentType(rs.getString("Equipment_type_name"));
+                    reservation.getEquipmentList().add(equipmentType);
+
+                }
+                idPrec = reservation.id;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public String toString(){
         String equipments ="";
         for(EquipmentType eq : equipmentTypeList){
             equipments += eq.toString() + ", ";
         }
+        String m;
+        if (this.mb == null) {
+            m = "";
+        } else {
+            m = "; [username: " + this.mb.getUsername() + "]";
+        }
+
         String dt = this.getDate().getDayOfMonth() + "/" + this.getDate().getMonthValue() + "/" + this.getDate().getYear();
-        return "Reservation Date : " + dt + " " + this.timeslot + "; [" + this.getField() + "]; [" + equipments + "]";
+        return "Reservation Date : " + dt + " " + this.timeslot + "; [" + this.getField() + "]; [" + equipments + "]"
+                + m;
     }
 
     public void cancelReservation(){

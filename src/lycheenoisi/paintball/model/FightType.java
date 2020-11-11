@@ -10,6 +10,12 @@ public class FightType extends Model {
         this.description = description;
     }
 
+    public FightType() { }
+
+    public FightType(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

@@ -41,6 +41,10 @@ public class Field extends Model{
 
     public Field() { }
 
+    public Field(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString(){
         return "Name field: " + this.getName() + ", Description: " + this.description;

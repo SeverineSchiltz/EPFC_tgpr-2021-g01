@@ -219,7 +219,7 @@ public class Reservation extends Model {
             equipments += eq.toString() + ", ";
         }
         String m;
-        if (this.mb.getUsername() == null) {
+        if (this.mb == null) {
             m = "";
         } else {
             m = "; [username: " + this.mb.getUsername() + "]";

@@ -149,7 +149,8 @@ public abstract class User extends Model{
 //        if (email == null || !Pattern.matches("[a-zA-Z0-9\\.]*@[a-zA-Z0-9]*\\.[a-zA-Z0-9]*", email))
 //            //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
 //            return "invalid email";
-
+        else if (getByEmail(email) != null)
+            return "email already exists, please choose another one";
         return null;
     }
 

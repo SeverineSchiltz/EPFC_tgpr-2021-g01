@@ -124,16 +124,70 @@ public class PaintballAppTest {
     }
 
     @Test
-    public void test_UC_DisplayAvailableFields(){
+    public void test_UC_DisplayAvailableFields() {
         if (!Model.checkDb()) {
             new ErrorView("Database is not available").close();
-        }else {
+        } else {
             User user = getByUsername("sschilt"); //member
+            new DisplayAvailableFieldsController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_SignUp(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        } else {
+            new SignUpController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_MainMenuMember(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        } else {
+            User user = getByUsername("ssoupar"); //member
+
             //User user = getByUsername("cjadot"); //member vip
             //User user = getByUsername("nvorkap"); //employee
             //User user = getByUsername("lmalsag"); // admin
             setLoggedUser(user);
-            new DisplayAvailableFieldsController().run();
+
+            new MainMenuMemberController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_DisplayFutureReservationsController(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayFutureReservationsController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_DisplayAllFightTypesController(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayAllFightTypesController().run();
+        }
+    }
+
+    @Test
+    public void test_UC_DisplayAllEquipmentsController(){       /* LEYLA */
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayAllEquipmentsController().run();
         }
     }
 

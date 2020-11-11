@@ -4,7 +4,7 @@ Liste des utilisateurs en base de données (username, password, role):
 - sschilt, severine01, member
 - ssoupar, sinouhe01, member
 - cjadot, christophe01, member vip
-- iboudgh, ines01, member vi
+- iboudgh, ines01, member vip
 
 -------------------------------------------------------------------------------------
 
@@ -18,6 +18,7 @@ Liste des UC par personne:
 	Sinouhé Soupart:
 		- MainMenuMember : si la personne connectée est un membre ou membre vip alors elle est redirigée vers ce menu
 		- SignUp : pour le visiteur qui veut s'ajouter dans l'application sans passer par un employé
+		- DisplayAllFightTypes: affiche les différents types de combat possibles 
 		
 	Nikola Vorkapic:
 		- CancelReservation : uc pour supprimer une réservation

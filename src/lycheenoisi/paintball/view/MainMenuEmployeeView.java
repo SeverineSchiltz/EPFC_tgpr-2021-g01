@@ -6,13 +6,13 @@ public class MainMenuEmployeeView extends View {
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n[M] Display members, [R] Display all reservations,[A] Display Fields, [L] Logout",
-                "[mM]+|[rR]+|[aA]+|[lL]");
+        return doAskForAction(size, "\n[M] Display members, [R] Display all reservations, [A] Display Fields, [S] Display Stat by field, [F] Display fight types, [Q] Display Equipments, [L] Logout",
+                "[mM]+|[rR]+|[aA]+|[lL]+|[sS]+|[fF]+|[qQ]");
     }
 
     public View.Action askForActionAdmin(int size) {
-        return doAskForAction(size, "\n[M] Display members, [R] Display all reservations,[A] Display Fields, [E] Display employees, [L] Logout",
-                "[mM]+|[rR]+|[aA]+|[eE]+|[lL]");
+        return doAskForAction(size, "\n[M] Display members, [R] Display all reservations, [A] Display Fields, [E] Display employees, [S] Display Stat by field, [F] Display fight types, [Q] Display Equipments, [L] Logout",
+                "[mM]+|[rR]+|[aA]+|[eE]+|[lL]+|[sS]+|[fF]+|[qQ]");
     }
 
 }

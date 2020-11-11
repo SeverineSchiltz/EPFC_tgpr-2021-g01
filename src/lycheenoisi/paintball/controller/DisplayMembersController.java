@@ -29,13 +29,11 @@ public class DisplayMembersController extends Controller {
                             new AddMemberController().run();
                             break;
                         case 'D': // to delete a member
-                            // !!! to check !
                             Member m = members.get(res.getNumber() - 1);
                             m.delete();
                             break;
-                        case 'B':
-                            // !!! not the right UC at this stage !
-                            new BookFieldAndEquipmentController().run();
+                        case 'F': // to display all fiels
+                            new DisplayAllFieldsController().run();
                             break;
                     }
 

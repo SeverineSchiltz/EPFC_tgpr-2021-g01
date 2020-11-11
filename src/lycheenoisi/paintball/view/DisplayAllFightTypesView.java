@@ -1,27 +1,30 @@
 package lycheenoisi.paintball.view;
 
 import lycheenoisi.paintball.model.Field;
+import lycheenoisi.paintball.model.FightType;
 
 import java.util.ArrayList;
 
 public class DisplayAllFightTypesView extends View {
 
-    public void displayHeader() { displayHeader("** Fields **"); }
-    public void displayAllFields(ArrayList<Field> fields) {
-        if (!fields.isEmpty() ) {
+    public void displayHeader() { displayHeader("** Fight types **"); }
+
+    public void displayAllFightTypes(ArrayList<FightType> fightTypes) {
+        if (!fightTypes.isEmpty() ) {
             int i = 1;
-            for (var f : fields) {
-                println(i + ") " +"Name : "+f.getName()+"| Min players : "+f.getMinPlayers()+"| Max players : "+f.getMaxPlayers()+"| Price : "+f.getPrice());
+            for (var ft : fightTypes) {
+                println(i + ") " +"Name" + ft.getName()
+                        + "\nDescription: "+ft.getDescription());
                 ++i;
             }
         } else {
-            println("There is no field in the system");
+            println("There is no fight type in the system");
         }
     }
 
     public Action askForAction(int size) {
-        return doAskForAction(size, "\n[M] MainMenu, [F] Available Fields",
-                "[mM]+|[fF]");
+        return doAskForAction(size, "\n[M] MainMenu",
+                "[mM]");
     }
 
 }

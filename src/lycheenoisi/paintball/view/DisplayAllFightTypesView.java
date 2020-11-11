@@ -13,8 +13,8 @@ public class DisplayAllFightTypesView extends View {
         if (!fightTypes.isEmpty() ) {
             int i = 1;
             for (var ft : fightTypes) {
-                println(i + ") " +"Name" + ft.getName()
-                        + "\nDescription: "+ft.getDescription());
+                println(i + ") " + ft.getName()
+                        + "\nDescription: " + ft.getDescription() + "\n");
                 ++i;
             }
         } else {

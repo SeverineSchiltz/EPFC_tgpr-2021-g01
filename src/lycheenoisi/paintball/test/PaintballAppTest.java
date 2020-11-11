@@ -75,8 +75,9 @@ public class PaintballAppTest {
         }else {
             //User user = getByUsername("sschilt"); //member
             //User user = getByUsername("cjadot"); //member vip
-            //User user = getByUsername("nvorkap"); //employee
-            User user = getByUsername("lmalsag"); //admin
+            User user = getByUsername("nvorkap"); //employee
+            //User user = getByUsername("lmalsag"); //admin
+            //User user = getByUsername("pouet");
             //User userModifier = getByUsername("nvorkap"); //employee
             User userModifier = getByUsername("cjadot"); //member vip
             //User userModifier = getByUsername("lmalsag"); //admin
@@ -122,5 +123,18 @@ public class PaintballAppTest {
         }
     }
 
+    @Test
+    public void test_UC_DisplayAvailableFields(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("sschilt"); //member
+            //User user = getByUsername("cjadot"); //member vip
+            //User user = getByUsername("nvorkap"); //employee
+            //User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayAvailableFieldsController().run();
+        }
+    }
 
 }

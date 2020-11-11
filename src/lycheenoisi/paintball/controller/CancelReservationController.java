@@ -10,33 +10,63 @@ import java.util.List;
 public class CancelReservationController extends Controller{
     private final CancelReservationView view = new CancelReservationView();
 
+    @Override
     public void run() {
-        view.displayHeader("Annuler une réservation:");
+        view.displayHeader("Cancel a reservation:");
 
         Member m = (Member)PaintballApp.getLoggedUser();
         List<Reservation> res = Reservation.getReservationsNotCancelled(m);
 
         if (res.size() == 0) {
-            view.println("Vous n'avez pas de réservations.");
+            view.println("You don't have any reservations made.");
             return;
         }
-        view.println("Voici vos réservations: ");
+        view.println("Your reservations: ");
         int i = 1;
         for(Reservation r : res) {
             view.println(i + ") " + r);
             ++i;
         }
-        view.println("Veuillez séléctionner une réservation à annuler ou entrez 0 pour revenir: ");
+        view.println("Please select a reservation to cancel or enter 0 to leave: ");
         int cancelNumber = view.askCancelReservationNumber();
         if (cancelNumber == 0)
             return;
         while (cancelNumber > res.size()) {
-            view.println("Numéro de réservation non existant! ");
+            view.println("This reservation number doesn't exist! ");
             cancelNumber = view.askCancelReservationNumber();
         }
         Reservation toCancel = res.get(cancelNumber - 1);
         Reservation.cancelReservation(toCancel.getId());
-        view.println("La réservation " + cancelNumber + " a bien été annulée." );
+        view.println("The reservation #" + cancelNumber + " has been canceled." );
+    }
+
+    public void run(Member m2) {
+        view.displayHeader("Cancel a reservation:");
+
+        Member m = m2;
+        List<Reservation> res = Reservation.getReservationsNotCancelled(m);
+
+        if (res.size() == 0) {
+            view.println("You don't have any reservations made.");
+            return;
+        }
+        view.println("Your reservations: ");
+        int i = 1;
+        for(Reservation r : res) {
+            view.println(i + ") " + r);
+            ++i;
+        }
+        view.println("Please select a reservation to cancel or enter 0 to leave: ");
+        int cancelNumber = view.askCancelReservationNumber();
+        if (cancelNumber == 0)
+            return;
+        while (cancelNumber > res.size()) {
+            view.println("This reservation number doesn't exist! ");
+            cancelNumber = view.askCancelReservationNumber();
+        }
+        Reservation toCancel = res.get(cancelNumber - 1);
+        Reservation.cancelReservation(toCancel.getId());
+        view.println("The reservation #" + cancelNumber + " has been canceled." );
     }
 
 

@@ -9,7 +9,7 @@ public class DisplayAvailableFieldsView extends View {
 
     public void displayHeader() { displayHeader("** Available fields **"); }
     public LocalDate askDate() { return askDate("Date (dd/mm/yyyy) : ", null); }
-    public String askFightType() {return askString("Fight type : ",null);}
+    public String askFightType() {return askString("Fight type (President|Battle Royal|Spy|Among us|Hunting|Conquering) : ",null);}
     public String askTimeslot() { return askString("Timeslot (Morning|Afternoon|Evening)  : ",null);}
 
     public void displayAvailableFields(ArrayList<Field> fields) {
@@ -25,8 +25,8 @@ public class DisplayAvailableFieldsView extends View {
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n[M] MainMenu, [B] Book a field",
-                "[mM]+|[bB]");
+        return doAskForAction(size, "\n[L] Leave, [B] Book a field",
+                "[lL]+|[bB]");
     }
 
 }

@@ -27,10 +27,13 @@ public class MainMenuEmployeeController extends Controller {
                         new DisplayMembersController().run();
                         break;
                     case 'R':
-                        //new DisplayFuturReservations().run();
+                        new DisplayFutureReservationsController().run();
                         break;
                     case 'E':
                         new DisplayEmployeesController().run();
+                        break;
+                    case 'S':
+                        //new StatByFieldController().run();
                         break;
                     case 'A':
                         new DisplayAllFieldsController().run();

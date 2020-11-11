@@ -3,8 +3,6 @@ package lycheenoisi.paintball.controller;
 import lycheenoisi.paintball.PaintballApp;
 import lycheenoisi.paintball.model.*;
 import lycheenoisi.paintball.view.BookFieldAndEquipmentView;
-import lycheenoisi.paintball.view.CancelReservationView;
-import lycheenoisi.paintball.view.View;
 
 import java.time.LocalDate;
 
@@ -18,12 +16,12 @@ public class BookFieldAndEquipmentController extends Controller {
         String res = null;
         do {
             view.displayHeader();
-            LocalDate dateSouhaitee = null;
+            LocalDate preferredDate = null;
             boolean hasError = false;
 
             do {
-                dateSouhaitee = view.askDate();
-                hasError = !this.dateValide(dateSouhaitee, connectedUser);
+                preferredDate = view.askDate();
+                hasError = !this.isDateValid(preferredDate, connectedUser);
             } while (hasError);
 
             int timeSlot = 0;
@@ -38,30 +36,30 @@ public class BookFieldAndEquipmentController extends Controller {
                 ts = Timeslot.Afternoon;
             if (timeSlot == 3)
                 ts = Timeslot.Evening;
-            var fields = Field.getAvailableFields(dateSouhaitee, ts, fightType);
+            var fields = Field.getAvailableFields(preferredDate, ts, fightType);
             view.displayAvailableFields(fields);
             if (fields.isEmpty()) {
-                view.println("Aucun terrain disponible avec vos filtres.");
-                res = view.askString("[R] Ressayer, [S] Sortir", null);
+                view.println("No field available with the current filters.");
+                res = view.askString("[R] Retry, [L] Leave", null);
                 continue;
             }
-            int idTerrain = view.askInt("Choissez le terrain à réserver: ");
-            Reservation.createReservation(dateSouhaitee, ts, idTerrain, connectedUser.getId(), fightType);
+            int idTerrain = view.askInt("Choose a field to book: ");
+            Reservation.createReservation(preferredDate, ts, idTerrain, connectedUser.getId(), fightType);
             break;
-        } while (!res.equals("S") && !res.equals("s"));
+        } while (!res.equals("L") && !res.equals("l"));
     }
 
-    public boolean dateValide(LocalDate dateSouhaitee, User connectedUser) {
-        if (dateSouhaitee == null) {
+    public boolean isDateValid(LocalDate preferredDate, User connectedUser) {
+        if (preferredDate == null) {
             return false;
         }
-        if (LocalDate.now().plusDays(1).isAfter(dateSouhaitee)) {
+        if (LocalDate.now().plusDays(1).isAfter(preferredDate)) {
             return false;
         }
         if (connectedUser.getRole() == Role.membervip) {
-            return dateSouhaitee.isBefore(LocalDate.now().plusDays(1).plusMonths(3));
+            return preferredDate.isBefore(LocalDate.now().plusDays(1).plusMonths(3));
         }
-       return dateSouhaitee.isBefore(LocalDate.now().plusDays(1).plusWeeks(2));
+       return preferredDate.isBefore(LocalDate.now().plusDays(1).plusWeeks(2));
     }
 
 

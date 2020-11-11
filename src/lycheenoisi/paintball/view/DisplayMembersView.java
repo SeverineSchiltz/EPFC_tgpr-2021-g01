@@ -22,12 +22,12 @@ public class DisplayMembersView extends View {
         println("\n[E] Edit profile");
         println("\n[A] Add member");
         println("\n[D] Delete member");
-        println("\n[B] Book (display availability)");
+        println("\n[F] Display all fields");
         println("\n[L] Leave");
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n", "[aAbBlL]|[eE][1-9]|[dD][1-9]");
+        return doAskForAction(size, "\n", "[aAfFlL]|[eE][1-9]|[dD][1-9]");
     }
 
 /*    public View.Action askForAction(int size) {

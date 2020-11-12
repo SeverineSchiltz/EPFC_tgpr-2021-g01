@@ -25,7 +25,10 @@ Liste des UC par personne:
 		- BookFieldAndEquipment : uc pour réserver un terrain, les équipements, ...
 	
 	Leyla Malsagova:
-		- DisplayAvailableReservation : affiche les disponibilités des terrains, équipements, etc pour une date donnée
+		- DisplayAvailableFields : affiche les disponibilités des terrains en rentrant : date, moment et type de combat
+		- DisplayAllFields : affiche tous les terrains + infos 
+		- AddField : permet à un employé/admin d'ajouter un nouveau terrain dans la DB 
+		- DisplayAllEquipments : affiche tous les équipements + infos 
 		
 	Ines Boudghene:
 		- StartMenu: menu de démarrage de l'application

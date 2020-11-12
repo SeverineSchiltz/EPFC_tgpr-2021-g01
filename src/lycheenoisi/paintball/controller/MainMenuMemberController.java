@@ -25,17 +25,20 @@ public class MainMenuMemberController extends Controller {
                     res = view.askForAction(size);
 
                 switch (res.getAction()) {
-                    case 'R':
+                    case 'B':
                         new BookFieldAndEquipmentController().run();
                         break;
                     case 'E':
                         new EditMenuController(connectedUser).run();
                         break;
-                    case 'A':
+                    case 'R':
                         new DisplayReservationsController().run();
                         break;
-                    case 'F':
+                    case 'A':
                         new DisplayAllFieldsController().run();
+                        break;
+                    case 'F':
+                        new DisplayAllFightTypesController().run();
                         break;
                     case 'Q':
                         new DisplayAllEquipmentsController().run();

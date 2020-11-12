@@ -18,7 +18,7 @@ public class DisplayFieldsStatsController extends Controller{
                 res = view.askForAction(fields.size());
                 switch (res.getAction()) {
                     case 'D':
-
+                        new DisplayFieldStatDetailController(res.getNumber()).run();
                         break;
 
                 }

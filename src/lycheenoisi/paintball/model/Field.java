@@ -226,7 +226,8 @@ public class Field extends Model{
                         "FROM field trg2 JOIN reservation ON trg2.id=reservation.field_id "+
                         "WHERE reservation.is_cancelled IS NOT NULL and src.id=trg2.id) as C "+
                         "FROM field src "+
-                        "GROUP BY src.name";
+                        "GROUP BY src.name "+
+                        "ORDER BY src.id";
 
         var fieldsStats = new ArrayList<String>();
         try {
@@ -237,6 +238,36 @@ public class Field extends Model{
                 String field = String.format("%-12s",rs.getString(1))+"  "+
                                 String.format("%2s",rs.getString(2))+"   "+
                                 String.format("%2s",rs.getString(3));
+                fieldsStats.add(field);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fieldsStats;
+    }
+
+    public static List<String> getFieldStats(int id){
+        String query =  "SELECT src.name, " +
+                        "(SELECT count(*) " +
+                        "FROM field f1 JOIN reservation ON f1.id=reservation.field_id " +
+                                      "JOIN fight_type trg1 on reservation.fight_type_id = trg1.id " +
+                        "WHERE reservation.is_cancelled IS NULL and src.id=trg1.id and f1.id = "+id+") as NC, " +
+                        "(SELECT count(*) " +
+                        "FROM field f2 JOIN reservation ON f2.id=reservation.field_id " +
+                                      "JOIN fight_type trg2 on reservation.fight_type_id = trg2.id " +
+                        "WHERE reservation.is_cancelled IS NOT NULL and src.id=trg2.id and f2.id = "+id+") as C " +
+                        "FROM fight_type src " +
+                        "GROUP BY src.name";
+
+        var fieldsStats = new ArrayList<String>();
+        try {
+            var stmt = db.prepareStatement(query);
+
+            var rs = stmt.executeQuery();
+            while (rs.next()) {
+                String field = String.format("%-12s",rs.getString(1))+"  "+
+                        String.format("%2s",rs.getString(2))+"   "+
+                        String.format("%2s",rs.getString(3));
                 fieldsStats.add(field);
             }
         } catch (SQLException e) {

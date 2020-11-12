@@ -212,4 +212,15 @@ public class PaintballAppTest {
             new DisplayFieldsStatsController().run();
         }
     }
+
+    @Test
+    public void test_UC_DisplayFieldsStatDetailController(){
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        }else {
+            User user = getByUsername("lmalsag"); // admin
+            setLoggedUser(user);
+            new DisplayFieldStatDetailController(3).run();
+        }
+    }
 }

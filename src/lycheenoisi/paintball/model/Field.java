@@ -1,8 +1,12 @@
 package lycheenoisi.paintball.model;
-
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+
 
 public class Field extends Model{
 
@@ -152,17 +156,66 @@ public class Field extends Model{
             }
             var rs = stmt.executeQuery();
             while (rs.next()) {
-                    var f = new Field();
-                    f.setId(rs.getInt("id"));
-                    f.setName(rs.getString("name"));
-                    f.setMaxPlayers(rs.getInt("max_players"));
-                    f.setMinPlayers(rs.getInt("min_players"));
-                    f.setPrice(rs.getDouble("price"));
-                    fields.add(f);
+                var f = new Field();
+                f.setId(rs.getInt("id"));
+                f.setName(rs.getString("name"));
+                f.setMaxPlayers(rs.getInt("max_players"));
+                f.setMinPlayers(rs.getInt("min_players"));
+                f.setPrice(rs.getDouble("price"));
+                fields.add(f);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return fields;
     }
+
+
+
+    public void save() {
+        String query = "insert into Field (name, description, is_inside, level, max_players, min_players, vip, price) " +
+                "values (?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt;
+            stmt = db.prepareStatement(query);
+            stmt.setString(1, this.getName());
+            stmt.setString(2, this.getDescription());
+            stmt.setBoolean(3, this.isIs_inside());
+            stmt.setInt(4, this.getLevel());
+            stmt.setInt(5, this.getMaxPlayers());
+            stmt.setInt(6, this.getMinPlayers());
+            stmt.setBoolean(7, this.isVip());
+            stmt.setDouble(8, this.getPrice());
+            stmt.executeQuery();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static String isValidName(String name) {
+        if (name == null || !Pattern.matches("[a-zA-Z0-9]{3,}", name))
+            return "invalid field name, must be at least 3 characters long with no special character";
+        return null;
+    }
+
+ /*   public static String isValidDescription(String description) {
+        if (description == null || !Pattern.matches("[a-zA-Z0-9]{1,}", description))
+            return "there shl";
+        return null;
+    } */
+
+
+    public List<String> validate() {
+        var errors = new ArrayList<String>();
+
+        var err = isValidName(name);
+        if (err != null) errors.add(err);
+        //la description peut être null
+        //err = isValidDescription(description);
+        //if (err != null) errors.add(err);
+        return errors;
+    }
+
+
 }

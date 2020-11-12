@@ -69,7 +69,7 @@ public class EditMenuController extends Controller{
                     user.setLastName(lastName);
                     user.setBirthdate(birthDate);
                     user.setEmail(email);
-                    errors = user.validate();
+                    errors = user.validateWithoutUsername();
                     if (errors.size() > 0)
                         view.showErrors(errors);
                 } while (errors.size() > 0);

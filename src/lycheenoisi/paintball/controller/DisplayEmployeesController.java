@@ -22,6 +22,10 @@ public class DisplayEmployeesController extends Controller {
                     case 'A':
                         new AddEmployeeController().run();
                         break;
+                    case 'E': // to edit a member's profile
+                        Employee empToEdit = employees.get(res.getNumber() - 1);
+                        new EditMenuController(empToEdit).run();
+                        break;
                     case 'D':
                         Employee e = employees.get(res.getNumber() - 1);
                         Employee.delete(e);

@@ -24,7 +24,7 @@ public class AddMemberView extends View{
     }
 
     public String askPsw() {
-        return askString("Password : ", "Password", true);
+        return askString("Password : ", "", true);
     }
 
     public LocalDate askBirthDate() {

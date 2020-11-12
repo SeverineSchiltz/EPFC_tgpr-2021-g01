@@ -75,11 +75,12 @@ public class PaintballAppTest {
         }else {
             //User user = getByUsername("sschilt"); //member
             //User user = getByUsername("cjadot"); //member vip
-            //User user = getByUsername("nvorkap"); //employee
-            User user = getByUsername("lmalsag"); //admin
+            User user = getByUsername("nvorkap"); //employee
+            //User user = getByUsername("lmalsag"); //admin
+            //User user = getByUsername("pouet");
             //User userModifier = getByUsername("nvorkap"); //employee
-            User userModifier = getByUsername("cjadot"); //member vip
-            //User userModifier = getByUsername("lmalsag"); //admin
+            //User userModifier = getByUsername("cjadot"); //member vip
+            User userModifier = getByUsername("lmalsag"); //admin
             setLoggedUser(userModifier);
             new EditMenuController(user).run();
         }
@@ -123,6 +124,16 @@ public class PaintballAppTest {
     }
 
     @Test
+    public void test_UC_DisplayAvailableFields() {
+        if (!Model.checkDb()) {
+            new ErrorView("Database is not available").close();
+        } else {
+            User user = getByUsername("sschilt"); //member
+            new DisplayAvailableFieldsController().run();
+        }
+    }
+
+    @Test
     public void test_UC_SignUp(){
         if (!Model.checkDb()) {
             new ErrorView("Database is not available").close();
@@ -137,10 +148,12 @@ public class PaintballAppTest {
             new ErrorView("Database is not available").close();
         } else {
             User user = getByUsername("ssoupar"); //member
+
             //User user = getByUsername("cjadot"); //member vip
             //User user = getByUsername("nvorkap"); //employee
             //User user = getByUsername("lmalsag"); // admin
             setLoggedUser(user);
+
             new MainMenuMemberController().run();
         }
     }

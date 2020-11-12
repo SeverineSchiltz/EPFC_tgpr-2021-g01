@@ -21,11 +21,11 @@ public class AddEmployeeController extends Controller{
             do {
                 view.displayHeader();
                 // encodage des données
-                String username = askUserName();
+                String username = view.askUserName();
                 String firstname = view.askFirstname();
                 String name = view.askName();
                 String email = view.askEmail();
-                String psw = this.askPassword();
+                String psw = view.askPsw();
                 boolean admin = view.askAdmin();
                 LocalDate birthDate = askBirthDate();
 
@@ -66,36 +66,6 @@ public class AddEmployeeController extends Controller{
             if (error != null) view.error(error);
         } while (error != null);
         return date;
-    }
-
-    private String askUserName() {
-        String username;
-        User user;
-        do {
-            username = view.askUserName();
-            user = User.getByUsername(username);
-            if (user != null) {
-                view.error("username already exists, please choose another one");
-            }
-            else if (User.isValidUsername(username) != null) {
-                view.error(User.isValidUsername(username));
-            }
-        } while (user != null || User.isValidUsername(username) != null);
-        return username;
-    }
-
-    private String askPassword() {
-        String password;
-            do {
-                password = view.askPsw();
-                if(password == null) {
-                    view.error("Please type a password");
-                }
-                else if (User.isValidPassword(password) != null) {
-                    view.error(User.isValidPassword(password));
-                }
-            } while (password == null || User.isValidPassword(password) != null);
-        return password;
     }
 
 }

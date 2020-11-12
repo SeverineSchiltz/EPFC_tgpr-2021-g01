@@ -72,4 +72,30 @@ public class FightType extends Model {
         fightType.setName(rs.getString("name"));
         fightType.setDescription(rs.getString("description"));
     }
+
+    public static boolean isValidFightTypeName(String nameToValidate) {
+        String request = null;
+        request = "SELECT ft.name 'ft_name' from  fight_type ft";
+        ArrayList<String> ftNames = new ArrayList<String>();
+
+        try {
+            var stmt = db.prepareStatement(request);
+            var rs = stmt.executeQuery();
+            while (rs.next()) {
+                String ftName = rs.getString("ft_name");
+                ftNames.add(ftName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("ftn input : " + nameToValidate);
+        for (String ftn : ftNames) {
+            System.out.println("ftn db : " + ftn);
+            if (nameToValidate != null && nameToValidate.toUpperCase().equals(ftn)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -22,8 +22,8 @@ public class DisplayMembersController extends Controller {
                     res = view.askForAction(members.size());
                     switch (res.getAction()) {
                         case 'E': // to edit a member's profile
-                            Member memberEdit = members.get(res.getNumber() - 1);
-                            new EditMenuController(memberEdit).run();
+                            Member memberToEdit = members.get(res.getNumber() - 1);
+                            new EditMenuController(memberToEdit).run();
                             break;
                         case 'A': // to add a member
                             new AddMemberController().run();

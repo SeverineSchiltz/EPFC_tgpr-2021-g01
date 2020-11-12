@@ -120,13 +120,16 @@ public abstract class User extends Model{
     public static String isValidUsername(String username) {
         if (username == null || !Pattern.matches("[a-zA-Z0-9]{3,}", username))
             return "invalid username, must be at least 3 characters long with no special character";
+        else if (getByUsername(username) != null) {
+            return "username already exists, please choose another one";
+        }
         return null;
     }
 
     public static String isValidPassword(String password) {
 //        if (password == null || !Pattern.matches("[a-zA-Z0-9]{3,}", password))
 //            return "invalid password";
-        if (!isMin3Char(password))
+        if (password == null || !Pattern.matches("[a-zA-Z0-9]{3,}", password) )
             return "password must have 3 characters minimum with no special character";
         return null;
     }
@@ -146,7 +149,8 @@ public abstract class User extends Model{
 //        if (email == null || !Pattern.matches("[a-zA-Z0-9\\.]*@[a-zA-Z0-9]*\\.[a-zA-Z0-9]*", email))
 //            //pas normal: en regex "." remplace tout caractère et pour le point il faut utiliser "\."
 //            return "invalid email";
-
+        else if (getByEmail(email) != null)
+            return "email already exists, please choose another one";
         return null;
     }
 
@@ -158,24 +162,39 @@ public abstract class User extends Model{
     }
 
     public static String isValidFirstname(String n) {
-        if (n == null || !Pattern.matches("[a-zA-Z0-9]", n))
+        if (n == null || !Pattern.matches("[a-zA-Z0-9]{1,}", n))
             return "invalid firstname";
         return null;
     }
 
     public static String isValidLastname(String n) {
-        if (n == null || !Pattern.matches("[a-zA-Z0-9]", n))
+        if (n == null || !Pattern.matches("[a-zA-Z0-9]{1,}", n))
             return "invalid lastname";
         return null;
     }
 
     public List<String> validate() {
+        //var errors = new ArrayList<String>();
+
+        // field validations
+        var errors = validateWithoutUsername();
+        var err = isValidUsername(username);
+        if (err != null) errors.add(err);
+
+
+        // cross-fields validations
+        /*if (profile != null && profile.equals(pseudo))
+            errors.add("profile and pseudo must be different");
+        gardé comme exemple*/
+        return errors;
+    }
+
+    public List<String> validateWithoutUsername() {
         var errors = new ArrayList<String>();
 
         // field validations
-        var err = isValidUsername(username);
-        if (err != null) errors.add(err);
-        err = isValidFirstname(firstName);
+
+        var err = isValidFirstname(firstName);
         if (err != null) errors.add(err);
         err = isValidLastname(lastName);
         if (err != null) errors.add(err);

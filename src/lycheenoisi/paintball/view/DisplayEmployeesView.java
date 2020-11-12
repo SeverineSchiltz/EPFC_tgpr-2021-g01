@@ -18,8 +18,8 @@ public class DisplayEmployeesView extends View {
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n[A] Add, [D] Delete, [L] Leave",
-                "[aA]+|[dD][0-9]+|[lL]");
+        return doAskForAction(size, "\n[A] Add, [E] Edit, [D] Delete, [L] Leave",
+                "[aA]+|[eE][0-9]+|[dD][0-9]+|[lL]");
     }
 
 }

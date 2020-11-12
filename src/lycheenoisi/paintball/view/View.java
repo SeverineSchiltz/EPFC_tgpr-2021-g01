@@ -230,6 +230,21 @@ public abstract class View {
         return out;
     }
 
+    public double askDouble(String prompt) {
+        boolean hasError;
+        int out = 0;
+        do {
+            hasError = false;
+            try {
+                out = (int) Double.parseDouble(askString(prompt, ""));
+            } catch (Exception e) {
+                error("invalid number");
+                hasError = true;
+            }
+        } while (hasError);
+        return out;
+    }
+
     public void showErrors(List<String> errors) {
         error("\nERRORS:");
         for (var err : errors)

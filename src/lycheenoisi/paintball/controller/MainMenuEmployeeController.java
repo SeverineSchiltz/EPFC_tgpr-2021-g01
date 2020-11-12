@@ -33,7 +33,7 @@ public class MainMenuEmployeeController extends Controller {
                         new DisplayEmployeesController().run();
                         break;
                     case 'S':
-                        //new StatByFieldController().run();
+                        new DisplayFieldsStatsController().run();
                         break;
                     case 'A':
                         new DisplayAllFieldsController().run();

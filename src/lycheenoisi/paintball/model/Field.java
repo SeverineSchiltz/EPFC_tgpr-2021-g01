@@ -2,8 +2,7 @@ package lycheenoisi.paintball.model;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 
@@ -132,7 +131,7 @@ public class Field extends Model{
     }
 
     public static ArrayList<Field> getAvailableFields(LocalDate date, Timeslot timeslot, String fightType){
-        String request=null;
+        String request;
         if(date!=null && timeslot!=null && fightType!=null){
             request = "SELECT f.id 'id', f.name 'name', f.max_players 'max_players', f.min_players 'min_players', f.price 'price' from  Field f";
             request += " inner join Fight_Type_Field ftf on f.id = ftf.field_id";
@@ -218,4 +217,31 @@ public class Field extends Model{
     }
 
 
+    public static List<String> getAllFieldsStats(){
+        String query =  "SELECT src.name, "+
+                        "(SELECT count(*) "+
+                        "FROM field trg1 JOIN reservation ON trg1.id=reservation.field_id "+
+                        "WHERE reservation.is_cancelled IS NULL and src.id=trg1.id) as NC, "+
+                        "(SELECT count(*) "+
+                        "FROM field trg2 JOIN reservation ON trg2.id=reservation.field_id "+
+                        "WHERE reservation.is_cancelled IS NOT NULL and src.id=trg2.id) as C "+
+                        "FROM field src "+
+                        "GROUP BY src.name";
+
+        var fieldsStats = new ArrayList<String>();
+        try {
+            var stmt = db.prepareStatement(query);
+
+            var rs = stmt.executeQuery();
+            while (rs.next()) {
+                String field = String.format("%-12s",rs.getString(1))+"  "+
+                                String.format("%2s",rs.getString(2))+"   "+
+                                String.format("%2s",rs.getString(3));
+                fieldsStats.add(field);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fieldsStats;
+    }
 }

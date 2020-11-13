@@ -74,7 +74,7 @@ public class Reservation extends Model {
             }
 
 
-        String requestCreateReservation = " INSERT into RESERVATION (`date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES (?, ?, NULL, ?, ?, ?)";
+            String requestCreateReservation = " INSERT into RESERVATION (`date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES (?, ?, NULL, ?, ?, ?)";
 
             var statementCreate = db.prepareStatement(requestCreateReservation);
             statementCreate.setDate(1, Date.valueOf(date));

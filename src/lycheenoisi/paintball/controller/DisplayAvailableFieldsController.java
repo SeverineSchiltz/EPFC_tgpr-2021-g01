@@ -1,4 +1,5 @@
 package lycheenoisi.paintball.controller;
+import lycheenoisi.paintball.PaintballApp;
 import lycheenoisi.paintball.model.Field;
 import lycheenoisi.paintball.model.FightType;
 import lycheenoisi.paintball.model.Timeslot;
@@ -42,10 +43,10 @@ public class DisplayAvailableFieldsController extends Controller {
                 res = view.askForAction(fields.size());
                 switch (res.getAction()) {
                     case 'B':
-                        new BookFieldAndEquipmentController().run();
+                        new BookFieldAndEquipmentController(PaintballApp.getLoggedUser()).run();
                         break;
                 }
-            } while (res.getAction() != 'L');
+            } while (res.getAction() != 'L' && res.getAction() != 'B');
         } catch (View.ActionInterruptedException e) {
         }
 

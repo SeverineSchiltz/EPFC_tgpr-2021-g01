@@ -11,7 +11,7 @@ public class DisplayAllEquipmentsView extends View {
         if (!equipments.isEmpty() ) {
             int i = 1;
             for (var e : equipments) {
-                println(i + ") " +"Name : "+e.getName()+"| To rent : "+e.getRent_price()+" € | To sell : "+e.getSell_price()+" €");
+                println(i + ") " +"Name : "+e.getName()+"| To rent : "+e.getRent_price()+" € | To sell : "+e.getRent_price()+" €");
                 ++i;
             }
         } else {
@@ -20,8 +20,8 @@ public class DisplayAllEquipmentsView extends View {
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n[M] MainMenu, [F] Available Fields",
-                "[mM]+|[fF]");
+        return doAskForAction(size, "\n[M] MainMenu",
+                "[mM]");
     }
 
 }

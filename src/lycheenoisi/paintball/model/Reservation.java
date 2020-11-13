@@ -135,10 +135,10 @@ public class Reservation extends Model {
                     r.setCancelled(false);
                     var f = new Field(rs.getString("field_name"), rs.getString("field_description"), rs.getBoolean("is_inside"), rs.getInt("level"), rs.getInt("max_players"), rs.getInt("min_players"), rs.getBoolean("vip"), rs.getDouble("price"));
                     r.setField(f);
-                    r.getEquipmentList().add(new EquipmentType(rs.getString("equipment_name"), rs.getDouble("rent_price")));
+                    r.getEquipmentList().add(new EquipmentType(rs.getString("equipment_name"), rs.getDouble("rent_price"), rs.getDouble("sell_price")));
                     list.add(r);
                 }else{
-                    r.getEquipmentList().add(new EquipmentType(rs.getString("equipment_name"), rs.getDouble("rent_price")));
+                    r.getEquipmentList().add(new EquipmentType(rs.getString("equipment_name"), rs.getDouble("sell_price"), rs.getDouble("sell_price")));
                 }
                 idPrec = rs.getInt("id");
             }

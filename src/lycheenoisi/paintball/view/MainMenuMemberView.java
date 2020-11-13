@@ -6,12 +6,12 @@ public class MainMenuMemberView extends View {
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n[B] Make a reservation, [E] Edit profile, [R] Display reservations, [D] Display available field, [A] Display fields, [F] Display fight types, [Q] Display Equipments, [L] Logout",
-                "[bB]+|[eE]+|[rR]+|[aA]+|[fF]+|[qQ]+|[lL]|[dD]");
+        return doAskForAction(size, "\n[B] Make a reservation\n[E] Edit profile\n[R] Display reservations\n[A] Display fields\n[F] Display fight types\n[Q] Display Equipments\n[L] Logout",
+                "[bB]+|[eE]+|[rR]+|[aA]+|[fF]+|[qQ]+|[lL]");
     }
 
     public View.Action askForActionVIP(int size) {
-        return doAskForAction(size, "\n[B] Make a reservation, [E] Edit profile, [R] Display reservations, [D] Display available field, [A] Display fields, [F] Display fight types, [Q] Display Equipments, [L] Logout",
-                "[bB]+|[eE]+|[rR]+|[aA]+|[fF]+|[qQ]+|[lL]|[dD]");
+        return doAskForAction(size, "\n[B] Make a reservation\n[E] Edit profile\n[R] Display reservations\n[A] Display fields\n[F] Display fight types\n[Q] Display Equipments\n[L] Logout",
+                "[bB]+|[eE]+|[rR]+|[aA]+|[fF]+|[qQ]+|[lL]");
     }
 }

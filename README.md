@@ -11,9 +11,11 @@ Liste des utilisateurs en base de données (username, password, role):
 Liste des UC par personne:
 		
 	Christophe Jadot:
-		- EditProfil : un employé peut modifier un member/membre vip ou un membre peut se modifier lui-même
+		- EditMenu : un employé peut modifier un member/membre vip et si c'est un admin modifier le status admin de l'employé
+		             ou un membre peut se modifier lui-même
 		- AddMember : Un employé peut ajouter un membre/membre vip
-		- Statistique : affiche le nombre de fois qu'un terrain a été réservé
+		- DisplayFieldsStats : affiche le nombre de réservation (non annulée et annulée) par terrain
+		- DisplayFieldStatDetail : affiche le nombre de réservation (non annulée et annulée) par type de jeu pour le terrain choisi
 	
 	Sinouhé Soupart:
 		- MainMenuMember : si la personne connectée est un membre ou membre vip alors elle est redirigée vers ce menu

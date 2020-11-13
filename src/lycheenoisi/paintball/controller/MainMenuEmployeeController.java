@@ -1,6 +1,7 @@
 package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.PaintballApp;
+import lycheenoisi.paintball.view.AddFieldView;
 import lycheenoisi.paintball.view.View;
 import lycheenoisi.paintball.view.MainMenuEmployeeView;
 
@@ -33,7 +34,7 @@ public class MainMenuEmployeeController extends Controller {
                         new DisplayEmployeesController().run();
                         break;
                     case 'S':
-                        //new StatByFieldController().run();
+                        new DisplayFieldsStatsController().run();
                         break;
                     case 'A':
                         new DisplayAllFieldsController().run();
@@ -44,6 +45,10 @@ public class MainMenuEmployeeController extends Controller {
                     case 'Q':
                         new DisplayAllEquipmentsController().run();
                         break;
+                    case 'N':
+                        new AddFieldController().run();
+                        break;
+
                 }
             } while (res.getAction() != 'L');
         } catch (View.ActionInterruptedException e) {

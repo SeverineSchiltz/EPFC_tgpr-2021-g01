@@ -163,7 +163,7 @@ public class Reservation extends Model {
         query += "JOIN equipment_stock es ON res.equipment_stock_id = es.id ";
         query += "JOIN equipment_type et ON es.equipment_type_id = et.id ";
         query += "WHERE r.is_cancelled IS NULL AND r.date >= NOW() ";
-        //query += " AND (u.role = 'member' OR u.role = 'member vip') ";
+        query += "AND (u.role = 'member' OR u.role = 'member vip') ";
         query += "ORDER BY r.id";
 
         try {

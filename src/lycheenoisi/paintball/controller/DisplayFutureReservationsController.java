@@ -23,7 +23,6 @@ public class DisplayFutureReservationsController extends Controller {
                     res = view.askForAction(reservations.size());
                     switch (res.getAction()) {
                         case 'C': // to cancel a reservation
-                            // !!! Won't work because "cancel reservation" is based on a member's reservations !
                             Reservation r = reservations.get(res.getNumber() - 1);
                             new CancelReservationController().run(r.getMb());
                             break;

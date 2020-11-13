@@ -32,7 +32,7 @@ public class DisplayMembersController extends Controller {
                             Member m = members.get(res.getNumber() - 1);
                             m.delete();
                             break;
-                        case 'F': // to display all fiels
+                        case 'F': // to display all fields
                             new DisplayAllFieldsController().run();
                             break;
                     }

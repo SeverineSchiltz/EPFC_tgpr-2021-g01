@@ -16,11 +16,6 @@ public class DisplayAllEquipmentsController extends Controller {
                 var equipments = EquipmentType.getAllEquipments();
                 view.displayAllEquipments(equipments);
                 res = view.askForAction(equipments.size());
-                switch (res.getAction()) {
-                    case 'F':
-                        new DisplayAvailableFieldsController().run();
-                        break;
-                }
             } while (res.getAction() != 'M');
         } catch (View.ActionInterruptedException e) {
         }

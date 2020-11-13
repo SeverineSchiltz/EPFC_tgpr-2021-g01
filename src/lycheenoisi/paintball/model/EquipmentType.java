@@ -14,6 +14,11 @@ public class EquipmentType extends Model{
         this.setRent_price(sell_price);
     }
 
+    public EquipmentType(String name, double rent_price){
+        this.setName(name);
+        this.setRent_price(rent_price);
+    }
+
     public EquipmentType() { }
 
     public EquipmentType(String name) {

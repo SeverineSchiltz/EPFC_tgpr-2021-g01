@@ -134,10 +134,6 @@ public abstract class User extends Model{
         return null;
     }
 
-    public static boolean isMin3Char(String word) {
-        return word.length() >2;
-    }
-
     public static String isValidEmail(String email) {
         if (email == null || !Pattern.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", email))
             return "invalid email";

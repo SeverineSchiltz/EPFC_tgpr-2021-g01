@@ -16,17 +16,16 @@ public class MainMenuMemberController extends Controller {
             View.Action res;
             do {
                 view.displayHeader();
-                var current = PaintballApp.getLoggedUser();
                 int size = 0;
 
-                if (current.getRole().equals(membervip))
+                if (connectedUser.getRole().equals(membervip))
                     res = view.askForActionVIP(size);
                 else
                     res = view.askForAction(size);
 
                 switch (res.getAction()) {
                     case 'B':
-                        new BookFieldAndEquipmentController().run();
+                        new BookFieldAndEquipmentController(connectedUser).run();
                         break;
                     case 'E':
                         new EditMenuController(connectedUser).run();
@@ -42,6 +41,9 @@ public class MainMenuMemberController extends Controller {
                         break;
                     case 'Q':
                         new DisplayAllEquipmentsController().run();
+                        break;
+                    case 'D':
+                        new DisplayAvailableFieldsController().run();
                         break;
                 }
             } while (res.getAction() != 'L');

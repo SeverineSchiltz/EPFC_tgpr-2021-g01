@@ -9,7 +9,7 @@ public class BookFieldAndEquipmentView extends View {
 
     public void displayHeader() { displayHeader("** Book a field **"); }
     public LocalDate askDate() { return askDate("Date (dd/mm/yyyy) : ", null); }
-    public String askFightType() {return askString("Fight type : ",null);}
+    public String askFightType() {return askString("Fight type (President|Battle Royal|Spy|Among us|Hunting|Conquering) : ",null);}
     public int askTimeslot() { return askInt("Timeslot (1:Morning 2:Afternoon 3:Evening)  : ");}
 
     public void displayAvailableFields(ArrayList<Field> fields) {

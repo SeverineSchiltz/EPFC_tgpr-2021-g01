@@ -23,8 +23,8 @@ public class DisplayAllFightTypesView extends View {
     }
 
     public Action askForAction(int size) {
-        return doAskForAction(size, "\n[M] MainMenu",
-                "[mM]");
+        return doAskForAction(size, "\n[L] Logout, [ESC] Go back",
+                "[lL]");
     }
 
 }

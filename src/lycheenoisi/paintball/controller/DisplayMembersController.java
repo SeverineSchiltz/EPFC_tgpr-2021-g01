@@ -32,8 +32,9 @@ public class DisplayMembersController extends Controller {
                             Member m = members.get(res.getNumber() - 1);
                             m.delete();
                             break;
-                        case 'F': // to display all fields
-                            new DisplayAllFieldsController().run();
+                        case 'B':
+                            Member memberToBook = members.get(res.getNumber() - 1);
+                            new BookFieldAndEquipmentController(memberToBook).run();
                             break;
                     }
 

@@ -20,9 +20,8 @@ public class DisplayAllFieldsView extends View {
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n[M] MainMenu, [F] Available Fields",
-                "[mM]+|[fF]");
+        return doAskForAction(size, "\n[M] MainMenu",
+                "[mM]");
     }
 
 }
-

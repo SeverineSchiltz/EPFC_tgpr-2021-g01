@@ -11,10 +11,14 @@ public class DisplayFutureReservationsView extends View {
     }
 
     public void displayReservations(List<Reservation> reservations) {
-        int i = 1;
-        for (var r : reservations) {
-            println(i + ") " + r);
-            ++i;
+        if (!reservations.isEmpty() ) {
+            int i = 1;
+            for (var r : reservations) {
+                println(i + ") " + r);
+                ++i;
+            }
+        } else {
+            println("There are no future reservations");
         }
     }
 

@@ -20,6 +20,9 @@ public class DisplayAllFieldsController extends Controller {
                     case 'F':
                         new DisplayAvailableFieldsController().run();
                         break;
+                    case 'A':
+                        new AddFieldController().run();
+                        break;
                 }
             } while (res.getAction() != 'M');
         } catch (View.ActionInterruptedException e) {

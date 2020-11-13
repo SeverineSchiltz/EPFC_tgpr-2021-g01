@@ -204,11 +204,19 @@ public class Field extends Model{
         return null;
     } */
 
+    public String isValidMinPlayerMax_player() {
+        if (this.maxPlayers < this.minPlayers)
+        return "Max player has to be > than min player";
+        return null;
+    }
+
 
     public List<String> validate() {
         var errors = new ArrayList<String>();
 
         var err = isValidName(name);
+        if (err != null) errors.add(err);
+        err = isValidMinPlayerMax_player();
         if (err != null) errors.add(err);
         //la description peut être null
         //err = isValidDescription(description);

@@ -11,7 +11,7 @@ public class DisplayAllEquipmentsView extends View {
         if (!equipments.isEmpty() ) {
             int i = 1;
             for (var e : equipments) {
-                println(i + ") " +"Name : "+e.getName()+"| To rent : "+e.getRent_price()+" € | To sell : "+e.getRent_price()+" €");
+                println(i + ") " +"Name : "+e.getName()+"| To rent : "+e.getRent_price()+" € | To sell : "+e.getSell_price()+" €");
                 ++i;
             }
         } else {

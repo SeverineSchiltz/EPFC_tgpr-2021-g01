@@ -21,13 +21,13 @@ public class DisplayMembersView extends View {
     public void displayMenu() {
         println("\n[E] Edit profile");
         println("\n[A] Add member");
+        println("\n[B] Book a field for a member");
         println("\n[D] Delete member");
-        println("\n[F] Display all fields");
         println("\n[L] Leave");
     }
 
     public View.Action askForAction(int size) {
-        return doAskForAction(size, "\n", "[aAfFlL]|[eE][1-9]|[dD][1-9]");
+        return doAskForAction(size, "\n", "[aAfFlL]|[eE][1-9]|[dD][1-9]|[bB][1-9]");
     }
 
 /*    public View.Action askForAction(int size) {

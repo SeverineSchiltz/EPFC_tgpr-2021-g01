@@ -74,7 +74,7 @@ public class Reservation extends Model {
             }
 
 
-        String requestCreateReservation = " INSERT into RESERVATION (`date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES (?, ?, NULL, ?, ?, ?)";
+            String requestCreateReservation = " INSERT into RESERVATION (`date`, `timeslot`, `is_cancelled`, `field_id`, `user_id`, `fight_type_id`) VALUES (?, ?, NULL, ?, ?, ?)";
 
             var statementCreate = db.prepareStatement(requestCreateReservation);
             statementCreate.setDate(1, Date.valueOf(date));
@@ -172,7 +172,7 @@ public class Reservation extends Model {
             int idPrec = 0;
             var reservation = new Reservation();
             while (rs.next()) {
-                if (rs.getInt("id") != idPrec) {
+                if (rs.getInt("Booking_ID") != idPrec) {
                     reservation = new Reservation();
                     reservation.id = rs.getInt("Booking_ID");
                     reservation.setDate(rs.getObject("Booking_date", LocalDate.class));

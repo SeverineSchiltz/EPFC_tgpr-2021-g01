@@ -19,7 +19,7 @@ public class DisplayReservationsView extends View {
                 ++i;
             }
         }else{
-            println("Pas de réservation");
+            println("No reservation");
         }
     }
 

@@ -5,7 +5,7 @@ import lycheenoisi.paintball.model.Field;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class BookFieldAndEquipmentView extends View {
+public class BookFieldView extends View {
 
     public void displayHeader() { displayHeader("** Book a field **"); }
     public LocalDate askDate() { return askDate("Date (dd/mm/yyyy) : ", null); }

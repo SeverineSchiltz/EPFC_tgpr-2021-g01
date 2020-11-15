@@ -1,18 +1,18 @@
 package lycheenoisi.paintball.controller;
 
 import lycheenoisi.paintball.model.*;
-import lycheenoisi.paintball.view.BookFieldAndEquipmentView;
+import lycheenoisi.paintball.view.BookFieldView;
 import lycheenoisi.paintball.view.View;
 
 import java.time.LocalDate;
 
 
-public class BookFieldAndEquipmentController extends Controller {
-    private final BookFieldAndEquipmentView view = new BookFieldAndEquipmentView();
+public class BookFieldController extends Controller {
+    private final BookFieldView view = new BookFieldView();
     private final User user;
 
 
-    public BookFieldAndEquipmentController(User user) {this.user = user;}
+    public BookFieldController(User user) {this.user = user;}
 
     @Override
     public void run() {

@@ -34,7 +34,7 @@ public class DisplayMembersController extends Controller {
                             break;
                         case 'B':
                             Member memberToBook = members.get(res.getNumber() - 1);
-                            new BookFieldAndEquipmentController(memberToBook).run();
+                            new BookFieldController(memberToBook).run();
                             break;
                     }
 

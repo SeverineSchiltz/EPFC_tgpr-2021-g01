@@ -25,7 +25,7 @@ public class MainMenuMemberController extends Controller {
 
                 switch (res.getAction()) {
                     case 'B':
-                        new BookFieldAndEquipmentController(connectedUser).run();
+                        new BookFieldController(connectedUser).run();
                         break;
                     case 'E':
                         new EditMenuController(connectedUser).run();

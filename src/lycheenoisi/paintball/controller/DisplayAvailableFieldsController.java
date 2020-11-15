@@ -43,7 +43,7 @@ public class DisplayAvailableFieldsController extends Controller {
                 res = view.askForAction(fields.size());
                 switch (res.getAction()) {
                     case 'B':
-                        new BookFieldAndEquipmentController(PaintballApp.getLoggedUser()).run();
+                        new BookFieldController(PaintballApp.getLoggedUser()).run();
                         break;
                 }
             } while (res.getAction() != 'L' && res.getAction() != 'B');

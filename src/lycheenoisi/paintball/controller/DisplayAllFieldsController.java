@@ -17,7 +17,7 @@ public class DisplayAllFieldsController extends Controller {
                 view.displayAllFields(fields);
                 res = view.askForAction(fields.size());
 
-            } while (res.getAction() != 'M');
+            } while (res.getAction() != 'L');
         } catch (View.ActionInterruptedException e) {
         }
 

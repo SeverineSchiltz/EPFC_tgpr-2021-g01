@@ -7,12 +7,12 @@ public class MainMenuEmployeeView extends View {
 
     public View.Action askForAction(int size) {
 
-        return doAskForAction(size, "\n[M] Display members, [R] Display future reservations, [A] Display Fields, [S] Display Stat by field, [F] Display fight types, [Q] Display Equipments, [N] Add New Field, [L] Logout",
+        return doAskForAction(size, "\n[M] Display members, \n[R] Display future reservations, \n[A] Display Fields, \n[S] Display Stat by field, \n[F] Display fight types, \n[Q] Display Equipments, \n[N] Add New Field, \n[L] Logout",
                 "[mM]+|[rR]+|[aA]+|[lL]+|[sS]+|[fF]+|[qQ]+|[nN]");
     }
 
     public View.Action askForActionAdmin(int size) {
-        return doAskForAction(size, "\n[M] Display members, [R] Display future reservations, [A] Display Fields, [E] Display employees, [S] Display Stat by field, [F] Display fight types, [Q] Display Equipments, [N] Add New Field,  [L] Logout",
+        return doAskForAction(size, "\n[M] Display members, \n[R] Display future reservations, \n[A] Display Fields, \n[E] Display employees, \n[S] Display Stat by field, \n[F] Display fight types, \n[Q] Display Equipments, \n[N] Add New Field,  \n[L] Logout",
                 "[mM]+|[rR]+|[aA]+|[eE]+|[lL]+|[sS]+|[fF]+|[qQ]+|[nN]");
 
     }

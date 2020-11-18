@@ -138,7 +138,7 @@ public class Reservation extends Model {
                     r.getEquipmentList().add(new EquipmentType(rs.getString("equipment_name"), rs.getDouble("rent_price")));
                     list.add(r);
                 }else{
-                    r.getEquipmentList().add(new EquipmentType(rs.getString("equipment_name"), rs.getDouble("sell_price")));
+                    r.getEquipmentList().add(new EquipmentType(rs.getString("equipment_name"), rs.getDouble("rent_price")));
                 }
                 idPrec = rs.getInt("id");
             }

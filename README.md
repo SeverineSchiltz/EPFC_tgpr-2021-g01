@@ -4,7 +4,7 @@
 
 - Il s'agit d'une application desktop de type console en java qui permet la gestion d'un établissement de paintball.
 - L'application a été codée sous IntelliJ et respecte le patron d'architecture MVC.
-- Les infos de laa base de données MYSQL se trouve dans le dossier database.
+- Les infos pour créer la base de données MYSQL se trouve dans le dossier database.
 
 ## Notes de livraison
 

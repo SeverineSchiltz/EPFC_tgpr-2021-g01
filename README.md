@@ -1,4 +1,4 @@
-# Projet TGPR 2020
+# Projet TGPR 2020 - PaintballApp
 
 ## Description du projet
 
